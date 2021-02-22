@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-02-21T18:56:10.178Z" agent="5.0 (Macintosh; Intel Mac OS X 11_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="5_lCf-lsHjzYK_LY95RB" version="14.4.2" type="github" pages="3">
+<mxfile host="app.diagrams.net" modified="2021-02-22T20:06:56.378Z" agent="5.0 (Macintosh; Intel Mac OS X 11_2_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" etag="baCMul9MCpSW_E5H3dYP" version="14.4.2" type="github" pages="3">
   <diagram name="Ebay" id="N3R0yRtl69pYPH-y9iuo">
-    <mxGraphModel dx="1426" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="5000" math="0" shadow="0">
+    <mxGraphModel dx="385" dy="343" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5000" pageHeight="5000" math="0" shadow="0">
       <root>
         <mxCell id="ebvVTvDQEhlDr3C3y-I--0" />
         <mxCell id="ebvVTvDQEhlDr3C3y-I--1" parent="ebvVTvDQEhlDr3C3y-I--0" />
@@ -170,16 +170,16 @@
           <mxGeometry x="840" y="880" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="G7zGfi4XQLMXJdrA0Zwe-8" value="Buy Now" style="strokeWidth=2;whiteSpace=wrap;html=1;align=center;fontSize=15;fontFamily=Helvetica;strokeColor=#b85450;fillColor=#f8cecc;fontStyle=0" vertex="1" parent="ebvVTvDQEhlDr3C3y-I--1">
-          <mxGeometry x="380" y="850" width="100" height="40" as="geometry" />
+          <mxGeometry x="370" y="860" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="G7zGfi4XQLMXJdrA0Zwe-9" value="&lt;b&gt;&lt;font style=&quot;font-size: 20px&quot;&gt;&lt;br&gt;ISA&lt;br&gt;&lt;br&gt;&lt;/font&gt;&lt;/b&gt;" style="triangle;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;fontSize=10;direction=south;fillColor=#FFD966;strokeWidth=2;align=center;verticalAlign=top;" vertex="1" parent="ebvVTvDQEhlDr3C3y-I--1">
-          <mxGeometry x="260" y="950" width="100" height="80" as="geometry" />
+          <mxGeometry x="270" y="960" width="100" height="80" as="geometry" />
         </mxCell>
         <mxCell id="G7zGfi4XQLMXJdrA0Zwe-11" value="Auction Offer" style="strokeWidth=2;whiteSpace=wrap;html=1;align=center;fontSize=15;fontFamily=Helvetica;strokeColor=#b85450;fillColor=#f8cecc;fontStyle=0" vertex="1" parent="ebvVTvDQEhlDr3C3y-I--1">
-          <mxGeometry x="180" y="860" width="100" height="40" as="geometry" />
+          <mxGeometry x="170" y="860" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="G7zGfi4XQLMXJdrA0Zwe-12" value="Offer" style="strokeWidth=2;whiteSpace=wrap;html=1;align=center;fontSize=15;fontFamily=Helvetica;strokeColor=#b85450;fillColor=#f8cecc;fontStyle=0" vertex="1" parent="ebvVTvDQEhlDr3C3y-I--1">
-          <mxGeometry x="260" y="1070" width="100" height="40" as="geometry" />
+          <mxGeometry x="270" y="1070" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="G7zGfi4XQLMXJdrA0Zwe-13" value="&lt;span style=&quot;font-size: 16px&quot;&gt;Is Part of a&lt;/span&gt;" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;fontSize=10;fillColor=#DEBEF7;strokeWidth=2;" vertex="1" parent="ebvVTvDQEhlDr3C3y-I--1">
           <mxGeometry x="152" y="720" width="118" height="80" as="geometry" />
@@ -209,7 +209,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="G7zGfi4XQLMXJdrA0Zwe-22" value="&lt;font style=&quot;font-size: 16px&quot;&gt;Buys&lt;/font&gt;" style="rhombus;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;fontSize=10;fillColor=#DEBEF7;strokeWidth=2;" vertex="1" parent="ebvVTvDQEhlDr3C3y-I--1">
-          <mxGeometry x="335" y="540" width="80" height="80" as="geometry" />
+          <mxGeometry x="390" y="580" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="G7zGfi4XQLMXJdrA0Zwe-23" value="" style="endArrow=none;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="ebvVTvDQEhlDr3C3y-I--1" source="G7zGfi4XQLMXJdrA0Zwe-22" target="YTVG2GfnRO3AYg1TEgZi-31">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
