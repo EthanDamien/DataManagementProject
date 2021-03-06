@@ -16,24 +16,26 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
 
-	<title>Liquor Stain</title>
+	<title>E107</title>
 </head>
 <body>
-    <div class="col-12" id="header" style="z-index: 1">
-		<img src="E107logo.png" style="height: 98px; float: left"/>
-		<input id="searchbar" type="text" name="search" placeholder="Search.." style="margin-top: 30px;"/>
-		<a href="/" id="gobutton" style="margin-top: 30px;">Go</a>
-		<div style="float: right;">
-		<a href="/" class="headerbutton">Log In</a>
-		<a href="/" class="headerbutton">Sign Up</a>
+	<div style= "position: fixed; width: 100vw; overflow-x: hidden;">
+		<div class="col-12" id="header" style="z-index: 1">
+			<img src="E107logo.png" style="height: 98px; float: left"/>
+			<input id="searchbar" type="text" name="search" placeholder="Search.." style="margin-top: 30px;"/>
+			<a href="/" id="gobutton" style="margin-top: 30px;">Go</a>
+			<div style="float: right;">
+			<a href="/" class="headerbutton">Log In</a>
+			<a href="/" class="headerbutton">Sign Up</a>
+			</div>
+		</div>
+		<div class="col-12" id="nav2" style="z-index: -1">
+			<a href="/" id="gobutton">Profile</a>
+			<a href="/" id="gobutton">Account</a>
+			<a href="/" id="gobutton">Categories</a>
+			<a href="/" id="gobutton">Sell</a>
+			<a href="/" id="gobutton" style="float: right;">About Us</a>
 		</div>
 	</div>
-	<div class="col-12" id="nav2" style="z-index: -1">
-		<a href="/" id="gobutton">Profile</a>
-		<a href="/" id="gobutton">Account</a>
-		<a href="/" id="gobutton">Categories</a>
-		<a href="/" id="gobutton">Sell</a>
-		<a href="/" id="gobutton" style="float: right;">About Us</a>
-	</div>
-	<div id= "products"></div>
+	<div id= "products" style="height: 200vh; background-color: bisque;"></div>
 </body>
