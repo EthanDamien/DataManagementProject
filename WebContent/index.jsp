@@ -12,7 +12,7 @@
 
   <!--Link bootstrap, css and fonts-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel = "stylesheet" type = "text/css" href="styles.css">
+	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -26,9 +26,12 @@
 	</head>
 	
 	<body>
+		<a href="login.jsp">Login</a>
+		<a href="register.jsp">Register</a>
+		
 		<div style= "position: fixed; width: 100vw; overflow-x: hidden;">
 			<div class="col-12" id="header" style="z-index: 1">
-				<img src="E107logo.png" style="height: 98px; float: left"/>
+				<img src="styles/E107logo.png" style="height: 98px; float: left"/>
 				<input id="searchbar" type="text" name="search" placeholder="Search.." style="margin-top: 30px;"/>
 				<a href="/" id="gobutton" style="margin-top: 30px;">Go</a>
 				<div style="float: right;">
