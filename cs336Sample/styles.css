@@ -26,6 +26,11 @@
     display: table;
   }
   
+.loginContainer{
+    margin: auto;
+    width: 50%;
+}
+  
 .headerbutton{
     float: left;
   color: black;
