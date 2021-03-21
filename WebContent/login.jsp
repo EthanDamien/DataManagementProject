@@ -30,7 +30,7 @@
         <h1 class = "headerGreetings">Nice to Meet You</h1>
         <form class = "formContainer" action="loginHandler.jsp" method = "POST">
         	<input class = "textField sweep" type="text" id = "username" name = "username" placeholder= "Username" required>
-            <input class = "textField sweep" type="text" id = "password" name = "password" placeholder= "Password" required>
+            <input class = "textField sweep" type="password" id = "password" name = "password" placeholder= "Password" required>
             <input class = "loginButton sweep" type="submit" value = "Login" style="margin-top: 10px;">
             <a class = "loginOrRegistration" href="registration.jsp">Don't have an account? Register here.</a>
         </form>
