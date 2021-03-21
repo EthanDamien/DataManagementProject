@@ -26,10 +26,7 @@
 	</head>
 	
 	<body>
-		<a href="login.jsp">Login</a>
-		<a href="register.jsp">Register</a>
-		
-		<div style= "position: fixed; width: 100vw; overflow-x: hidden;">
+		<div style= "">
 			<div class="col-12" id="header" style="z-index: 1">
 				<img src="styles/E107logo.png" style="height: 98px; float: left"/>
 				<input id="searchbar" type="text" name="search" placeholder="Search.." style="margin-top: 30px;"/>

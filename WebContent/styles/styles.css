@@ -26,11 +26,6 @@
     display: table;
   }
   
-.loginContainer{
-    margin: auto;
-    width: 50%;
-}
-  
 .headerbutton{
     float: left;
   color: black;
@@ -41,11 +36,38 @@
   
 }
 
+.loginheader {
+    margin-bottom: 20px;
+}
+
+.loginbutton {
+    position: relative;
+    width: 360px;
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+    height: 60px;
+}
+
+.textfield {
+    width: 360px;
+    margin-bottom: 20px;
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 20px;
+    border-color: none;
+    border: 0;
+    box-shadow: 0px 0px 5px;
+}
+
+
 #products{
+    position: relative;
     background: rgb(255,255,255);
     padding-top: 100px;
     background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
     height: 200vh;
+    z-index: 1;
 }
 
 #gobutton{
@@ -75,14 +97,14 @@ button:focus {
     position: relative;
     height: 100px;
     background-color: white;
-    z-index: 2;
+    z-index: 3;
     align-content: center;
 }
 
 #nav2 {
     position: relative;
     height: 40px;
-    z-index: -1;
+    z-index: 2;
     box-shadow: 0px 0px 20px;
     background-color: black;
 }
@@ -98,17 +120,44 @@ button:focus {
     box-shadow: 0px 0px 5px;
 }
 
-input[type=text] {
+#signupbutton{
+    margin-top: 20px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    width: 360px;
+    position: relative;
+    color: white;
+    background-color: black;
+    border: 2px solid white;
+}
+
+#loginform{
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 420px;
+    margin-top: -210px;
+    margin-left: -200px;
+    background-color: black;
+    z-index: 3;
+    color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 20px;
+}
+
+#searchbar{
     width: 130px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
   }
   
   /* When the input field gets focus, change its width to 100% */
-  input[type=text]:focus {
+#searchbar:focus{
     width: 400px;
   }
 
-body {
+body{
     font-family: StyreneMedium;
 }
