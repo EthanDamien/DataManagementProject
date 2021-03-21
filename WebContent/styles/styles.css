@@ -26,8 +26,8 @@
     display: table;
   }
   
-.headerbutton{
-    float: left;
+.headerButton{
+  float: left;
   color: black;
   text-align: center;
   padding: 30px 30px;
@@ -36,11 +36,7 @@
   
 }
 
-.loginheader {
-    margin-bottom: 20px;
-}
-
-.loginbutton {
+.loginButton {
     position: relative;
     width: 360px;
     color: white;
@@ -49,7 +45,7 @@
     height: 60px;
 }
 
-.textfield {
+.textField {
     width: 360px;
     margin-bottom: 20px;
     height: 40px;
@@ -70,7 +66,7 @@
     z-index: 1;
 }
 
-#gobutton{
+#goButton{
     color: white;
     float: left;
     background-color:black;
@@ -101,7 +97,7 @@ button:focus {
     align-content: center;
 }
 
-#nav2 {
+.navBar {
     position: relative;
     height: 40px;
     z-index: 2;
@@ -109,7 +105,7 @@ button:focus {
     background-color: black;
 }
 
-#searchbar {
+#searchBar {
     float: left;
     height: 40px;
     margin-left: 20px;
@@ -132,7 +128,11 @@ button:focus {
     border: 2px solid white;
 }
 
-#loginform{
+#loginForm{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: absolute; 
     top: 50%;
     left: 50%;
@@ -145,6 +145,32 @@ button:focus {
     color: white;
     padding: 20px;
     box-shadow: 0px 0px 20px;
+}
+
+#registrationForm{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 480px;
+    margin-top: -210px;
+    margin-left: -200px;
+    background-color: black;
+    z-index: 3;
+    color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 20px;
+}
+
+.formContainer{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #searchbar{
@@ -160,4 +186,12 @@ button:focus {
 
 body{
     font-family: StyreneMedium;
+}
+
+.loginOrRegistration {
+	margin: 30px 0px;
+}
+
+.headerGreetings {
+	margin: 40px 0px;
 }

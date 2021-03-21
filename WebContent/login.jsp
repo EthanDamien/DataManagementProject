@@ -1,7 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,24 +15,25 @@
     <title>BuyMe - Login</title>
 </head>
 <body>
-    <div>
-        <div class="col-12" id="header">
-            <img src="styles/E107logo.png" style="height: 98px; float: left"/>
-        </div>
-        <div class="col-12" id="nav2">
-            <div id="gobutton">Sign in</a>
+    <div class="headerContainer">
+    	<div class="col-12" id="header">
+            <a href="index.jsp">
+            	<img src="styles/E107logo.png" style="height: 98px; float: left"/>
+            </a>
         </div>
     </div>
-    <div id = "loginform">
-        <div class = "h1 loginheader">Hey, Welcome Back</div>
-        <form action="loginHandler.jsp" input = "text" method = "POST">
-            <input class = "textfield" type="text" id = "username" name = "username" placeholder= "Username" required>
-            <input class = "textfield" type="text" id = "password" name = "password" placeholder= "Password" required>
-            <input class = "loginbutton" type="submit" value = "Submit">
+    
+  	<div class="navBar">
+    </div>
+    
+    <div id = "loginForm">
+        <h1 class = "headerGreetings">Nice to Meet You</h1>
+        <form class = "formContainer" action="loginHandler.jsp" method = "POST">
+        	<input class = "textField sweep" type="text" id = "username" name = "username" placeholder= "Username" required>
+            <input class = "textField sweep" type="text" id = "password" name = "password" placeholder= "Password" required>
+            <input class = "loginButton sweep" type="submit" value = "Login" style="margin-top: 10px;">
+            <a class = "loginOrRegistration" href="registration.jsp">Don't have an account? Register here.</a>
         </form>
-        <a href = "registration.jsp">
-        <div id = "signupbutton">Sign Up</div>
-        </a>
     </div>
     <div id ="products" style = "height: 100vw;"></div>
     </div>

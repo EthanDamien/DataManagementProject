@@ -28,6 +28,7 @@
         </div>
     </div>
     <div id = "loginform">
+        <h1>Nice to Meet You</h1>
         <div class = "h1 loginheader">Nice to Meet You</div>
         <form action="loginHandler.jsp" input = "text" method = "POST">
             <input class = "textfield sweep" type="text" id = "email" name = "userEmail" placeholder= "Email" required>
