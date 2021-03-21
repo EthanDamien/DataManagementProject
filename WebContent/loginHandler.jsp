@@ -15,12 +15,16 @@
 
     
     <%
-  	
+    
+    ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();
+	
+	ResultSet result = null;
+	PreparedStatement ps = null;
+	
     try 
     {
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();	
-
+			
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
@@ -28,11 +32,9 @@
         
         //the query is limiting, case sensitive
         String query = "SELECT * from users WHERE Username = ?";
-		PreparedStatement ps = con.prepareStatement(query);
+		ps = con.prepareStatement(query);
         ps.setString(1, username);
-
-        ResultSet result = ps.executeQuery();
-
+        result = ps.executeQuery();
         if(result.next()) 
         {
             String userPassword = result.getString("password");
@@ -40,7 +42,7 @@
             {
                 session.setAttribute("Username", username);
                 session.setAttribute("acountType", result.getInt("type"));
-                
+
                 response.sendRedirect("index.jsp");
                 return;
             }
@@ -57,21 +59,21 @@
         	response.sendRedirect("bop.jsp");
             return;
         }
-        
-      	//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-  		con.close();
-  		out.print("Login succeeded");
-    
   	} 
     catch (Exception ex)
     {
   		out.print(ex);
   		out.print("Login failed");
   	}
+    finally 
+    {
+    	try { result.close(); } catch (Exception e) {}
+        try { ps.close(); } catch (Exception e) {}
+        try { con.close(); } catch (Exception e) {}
+    }
     %> 
     
 
     
 </body>
 </html>
-
