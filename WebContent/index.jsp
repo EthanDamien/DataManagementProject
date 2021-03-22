@@ -4,13 +4,47 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<title>BuyMe - Home</title>
+    <!--meta-->
+	<meta charset = "utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, minimum-scale=1">
+
+  <!--Link bootstrap, css and fonts-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>BuyMe - Home</title>
 </head>
 <body>
-	<a href="login.jsp">Login</a>
-	<a href="registration.jsp">Register</a>
+	<h1 id = "welcome"> Welcome to BuyMe! </h1>
+	<a id = "login" href="login.jsp">Login</a>
+	<a id = "register" href="registration.jsp">Register</a>
+	
+	<%
+		try{
+			if((Integer)session.getAttribute("holder") == 1)
+				return;
+				
+			String temp = (String) session.getAttribute("error");
+			session.setAttribute("holder", 1);
+				
+			if(temp.equals("Invalid")){%>
+				<script>alert('Invalid Username or Password')</script><%}
+			else if(temp.equals("Username")){%>
+				<script>alert('Username does not exist');</script>
+			<%}else if(temp.equals("Valid")){%>
+				<script>
+				alert('Sucessful Login');
+				document.getElementById("login").classList.add("hidden");
+				document.getElementById("register").classList.add("hidden");
+				</script>
+			<%}	
+		}catch (Exception ex){
+		}		
+	%>
+	
 </body>
 </html>

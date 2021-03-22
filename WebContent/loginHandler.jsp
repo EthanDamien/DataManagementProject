@@ -12,19 +12,15 @@
     <title>E107 - Login</title>
 </head>
 <body>
-
-    
     <%
-    
     ApplicationDB db = new ApplicationDB();	
 	Connection con = db.getConnection();
 	
 	ResultSet result = null;
 	PreparedStatement ps = null;
-	
+	session.setAttribute("holder", 0);
     try 
-    {
-			
+    {	
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
@@ -42,6 +38,8 @@
             {
                 session.setAttribute("Username", username);
                 session.setAttribute("acountType", result.getInt("type"));
+                
+                session.setAttribute("error", "Valid");
 
                 response.sendRedirect("index.jsp");
                 return;
@@ -49,14 +47,17 @@
             // Return to Login Page but Display Wrong Credentials
             else
             {
-            	response.sendRedirect("bop.jsp");
+            	session.setAttribute("error", "Invalid");
+            	
+            	response.sendRedirect("login.jsp");
                 return;
             }
         }
      	// Return to Login Page but Display Wrong Credentials
         else
         {
-        	response.sendRedirect("bop.jsp");
+        	session.setAttribute("error", "Username");
+        	response.sendRedirect("login.jsp");
             return;
         }
   	} 
