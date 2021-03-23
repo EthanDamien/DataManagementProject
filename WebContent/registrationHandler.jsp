@@ -27,7 +27,20 @@
         String counter = "SELECT COUNT(*) FROM users";
 		ResultSet result = stmt.executeQuery(counter);
 		int count = 0;
+
+		String queryEmail = "SELECT * from users WHERE Email = ?";
+		emailPS = con.prepareStatement(queryEmail);
+		emailPS.setString(1, email);
+		emailResult = emailPS.executeQuery();
 		
+		//Check if the Email Exists in the system
+		if(emailResult.next())
+		{
+			session.setAttribute("error", "Email");
+        	
+        	response.sendRedirect("registration.jsp");
+            return;
+		}
 		if(result.next())
 		{
 			count = result.getInt("COUNT(*)") + 1;
@@ -42,7 +55,7 @@
 		ps.setInt(5, 1);
 		
         ps.executeUpdate();
-    	response.sendRedirect("index.jsp");
+    	response.sendRedirect("login.jsp");
 
         
       	//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.

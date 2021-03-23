@@ -38,23 +38,26 @@
             <input class = "textField sweep" type="password" id = "password" name = "password" placeholder= "Password" required>
             <input class = "loginButton sweep" type="submit" value = "Login" style="margin-top: 10px;">
 
-			 <%
+			<%
 			try{
-				if((Integer)session.getAttribute("holder") == 1)
-					return;
 				String temp = (String) session.getAttribute("error");
-				session.setAttribute("holder", 1);
 
 				if(temp.equals("Invalid")){%>
-				<script>alert('Invalid Username or Password')</script><%}
-				else if(temp.equals("Username")){%>
-				<script>alert('Username does not exist');</script>
+					<script>
+						alert('Invalid Username or Password')
+					</script>
+				<%}else if(temp.equals("Username")){%>
+					<script>
+						alert('Username does not exist');
+					</script>
 				<%}else if(temp.equals("Valid")){%>
-				<script>alert('Sucessful Login');</script>
-			<%}	
+					<script>
+						alert('Sucessful Login');
+					</script>
+				<%
+				}session.removeAttribute("error");	 
 			}catch (Exception ex) {
-			}
-				
+			}	
 			%>
 
             <a class = "loginOrRegistration" href="registration.jsp">Don't have an account? Register here.</a>
