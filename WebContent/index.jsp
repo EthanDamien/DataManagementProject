@@ -30,9 +30,11 @@
 				
 			if(temp.equals("Valid")){%>
 				<script>
-					alert('Sucessful Login');
+				window.onload = function(){
 					document.getElementById("login").classList.add("hidden");
 					document.getElementById("register").classList.add("hidden");
+					alert('Sucessful Login');
+				}
 				</script>
 			<%
 			}session.removeAttribute("error");
