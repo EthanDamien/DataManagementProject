@@ -24,17 +24,26 @@
 	<a id = "register" href="registration.jsp">Register</a>
 	
 	<%
-	try{
-		String temp = (String) session.getAttribute("error");
-
-		if(temp.equals("Email")){%>
-			<script>
-				alert('Email already exists');
-			</script><%
-		}
-		session.removeAttribute("error");	 
-	}catch (Exception ex) {
-	}		
+		try{
+			if((Integer)session.getAttribute("holder") == 1)
+				return;
+				
+			String temp = (String) session.getAttribute("error");
+			session.setAttribute("holder", 1);
+				
+			if(temp.equals("Invalid")){%>
+				<script>alert('Invalid Username or Password')</script><%}
+			else if(temp.equals("Username")){%>
+				<script>alert('Username does not exist');</script>
+			<%}else if(temp.equals("Valid")){%>
+				<script>
+				alert('Sucessful Login');
+				document.getElementById("login").classList.add("hidden");
+				document.getElementById("register").classList.add("hidden");
+				</script>
+			<%}	
+		}catch (Exception ex){
+		}		
 	%>
 	
 </body>

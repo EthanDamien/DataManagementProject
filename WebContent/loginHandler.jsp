@@ -38,6 +38,7 @@
             {
                 session.setAttribute("Username", username);
                 session.setAttribute("acountType", result.getInt("type"));
+                
                 session.setAttribute("error", "Valid");
 
                 response.sendRedirect("index.jsp");
@@ -47,6 +48,7 @@
             else
             {
             	session.setAttribute("error", "Invalid");
+            	
             	response.sendRedirect("login.jsp");
                 return;
             }
@@ -54,7 +56,7 @@
      	// Return to Login Page but Display Wrong Credentials
         else
         {
-        	session.setAttribute("error", "Invalid");
+        	session.setAttribute("error", "Username");
         	response.sendRedirect("login.jsp");
             return;
         }

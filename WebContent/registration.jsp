@@ -40,19 +40,7 @@
             <a class = "loginOrRegistration" href="registration.jsp">Already have an account? Login here.</a>
         </form>
     </div>
-    <%
-	try{
-		String temp = (String) session.getAttribute("error");
-
-		if(temp.equals("Email")){%>
-			<script>
-				alert('Email already exists');
-			</script>
-		<%
-		}session.removeAttribute("error");	 
-	}catch (Exception ex) {
-	}
-	%>
+    
  
     <div id ="products" style = "height: 100vw;"></div>
     </div>
