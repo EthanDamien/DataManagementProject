@@ -15,36 +15,56 @@
 	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>BuyMe - Home</title>
+    <title>BuyMe - Login</title>
 </head>
 <body>
-	<h1 id = "welcome"> Welcome to BuyMe! </h1>
-	<a id = "login" href="login.jsp">Login</a>
-	<a id = "register" href="registration.jsp">Register</a>
-	
-	<%
-		try{
-			if((Integer)session.getAttribute("holder") == 1)
-				return;
+    <div class="headerContainer">
+    	<div class="col-12" id="header">
+            <a href="index.jsp">
+            	<img src="styles/E107logo.png" style="height: 98px; float: left"/>
+            </a>
+        </div>
+    </div>
+    
+  	<div class="navBar">
+    </div>
+    
+    <div id = "loginForm">
+        <h1 class = "headerGreetings">Nice to Meet You</h1>
+        <form class = "formContainer" action="loginHandler.jsp" method = "POST">
+        	<input class = "textField sweep" type="text" id = "username" name = "username" placeholder= "Username" required>
+            <input class = "textField sweep" type="password" id = "password" name = "password" placeholder= "Password" required>
+            <input class = "loginButton sweep" type="submit" value = "Login" style="margin-top: 10px;">
+
+			<%
+			try{
+				String temp = (String) session.getAttribute("error");
+
+				if(temp.equals("Invalid")){%>
+					<script>
+						alert('Invalid Username or Password')
+					</script>
+				<%}else if(temp.equals("Username")){%>
+					<script>
+						alert('Username does not exist');
+					</script>
+				<%}else if(temp.equals("Valid")){%>
+					<script>
+						alert('Sucessful Login');
+					</script>
+				<%
+				}session.removeAttribute("error");	 
+			}catch (Exception ex) {
+			}
 				
-			String temp = (String) session.getAttribute("error");
-			session.setAttribute("holder", 1);
-				
-			if(temp.equals("Invalid")){%>
-				<script>alert('Invalid Username or Password')</script><%}
-			else if(temp.equals("Username")){%>
-				<script>alert('Username does not exist');</script>
-			<%}else if(temp.equals("Valid")){%>
-				<script>
-				alert('Sucessful Login');
-				document.getElementById("login").classList.add("hidden");
-				document.getElementById("register").classList.add("hidden");
-				</script>
-			<%}	
-		}catch (Exception ex){
-		}		
-	%>
-	
+			%>
+
+            <a class = "loginOrRegistration" href="registration.jsp">Don't have an account? Register here.</a>
+        </form>
+    </div>
+    <div id ="products" style = "height: 100vw;"></div>
+    </div>
 </body>
 </html>

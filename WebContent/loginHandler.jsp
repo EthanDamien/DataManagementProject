@@ -18,7 +18,7 @@
 	
 	ResultSet result = null;
 	PreparedStatement ps = null;
-	session.setAttribute("holder", 0);
+	
     try 
     {	
         String username = request.getParameter("username");
@@ -31,6 +31,8 @@
 		ps = con.prepareStatement(query);
         ps.setString(1, username);
         result = ps.executeQuery();
+        
+        // Check if there a tuple that matches the Username
         if(result.next()) 
         {
             String userPassword = result.getString("password");
@@ -38,7 +40,6 @@
             {
                 session.setAttribute("Username", username);
                 session.setAttribute("acountType", result.getInt("type"));
-                
                 session.setAttribute("error", "Valid");
 
                 response.sendRedirect("index.jsp");
@@ -56,7 +57,7 @@
      	// Return to Login Page but Display Wrong Credentials
         else
         {
-        	session.setAttribute("error", "Username");
+        	session.setAttribute("error", "Invalid");
         	response.sendRedirect("login.jsp");
             return;
         }
