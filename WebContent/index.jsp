@@ -6,65 +6,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--meta-->
-	<meta charset = "utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, minimum-scale=1">
-
-  <!--Link bootstrap, css and fonts-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>BuyMe - Login</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E107 - Login</title>
 </head>
 <body>
-    <div class="headerContainer">
-    	<div class="col-12" id="header">
-            <a href="index.jsp">
-            	<img src="styles/E107logo.png" style="height: 98px; float: left"/>
-            </a>
-        </div>
-    </div>
+    <%
+    ApplicationDB db = new ApplicationDB();	
+	Connection con = db.getConnection();
+	
+	ResultSet result = null;
+	PreparedStatement ps = null;
+	
+    try 
+    {	
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        
+        username.toLowerCase();
+        
+        //the query is limiting, case sensitive
+        String query = "SELECT * from users WHERE Username = ?";
+		ps = con.prepareStatement(query);
+        ps.setString(1, username);
+        result = ps.executeQuery();
+        
+        // Check if there a tuple that matches the Username
+        if(result.next()) 
+        {
+            String userPassword = result.getString("password");
+            if(userPassword.equals(password)) 
+            {
+                session.setAttribute("Username", username);
+                session.setAttribute("acountType", result.getInt("type"));
+                session.setAttribute("error", "Valid");
+
+                response.sendRedirect("index.jsp");
+                return;
+            }
+            // Return to Login Page but Display Wrong Credentials
+            else
+            {
+            	session.setAttribute("error", "Invalid");
+            	
+            	response.sendRedirect("login.jsp");
+                return;
+            }
+        }
+     	// Return to Login Page but Display Wrong Credentials
+        else
+        {
+        	session.setAttribute("error", "Invalid");
+        	response.sendRedirect("login.jsp");
+            return;
+        }
+  	} 
+    catch (Exception ex)
+    {
+  		out.print(ex);
+  		out.print("Login failed");
+  	}
+    finally 
+    {
+    	try { result.close(); } catch (Exception e) {}
+        try { ps.close(); } catch (Exception e) {}
+        try { con.close(); } catch (Exception e) {}
+    }
+    %> 
     
-  	<div class="navBar">
-    </div>
+
     
-    <div id = "loginForm">
-        <h1 class = "headerGreetings">Nice to Meet You</h1>
-        <form class = "formContainer" action="loginHandler.jsp" method = "POST">
-        	<input class = "textField sweep" type="text" id = "username" name = "username" placeholder= "Username" required>
-            <input class = "textField sweep" type="password" id = "password" name = "password" placeholder= "Password" required>
-            <input class = "loginButton sweep" type="submit" value = "Login" style="margin-top: 10px;">
-
-			<%
-			try{
-				String temp = (String) session.getAttribute("error");
-
-				if(temp.equals("Invalid")){%>
-					<script>
-						alert('Invalid Username or Password')
-					</script>
-				<%}else if(temp.equals("Username")){%>
-					<script>
-						alert('Username does not exist');
-					</script>
-				<%}else if(temp.equals("Valid")){%>
-					<script>
-						alert('Sucessful Login');
-					</script>
-				<%
-				}session.removeAttribute("error");	 
-			}catch (Exception ex) {
-			}
-				
-			%>
-
-            <a class = "loginOrRegistration" href="registration.jsp">Don't have an account? Register here.</a>
-        </form>
-    </div>
-    <div id ="products" style = "height: 100vw;"></div>
-    </div>
 </body>
 </html>
