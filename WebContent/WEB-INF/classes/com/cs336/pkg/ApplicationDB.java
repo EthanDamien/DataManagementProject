@@ -13,7 +13,7 @@ public class ApplicationDB {
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "jdbc:mysql://127.0.0.1:3306/BarBeerDrinkerSample";
+		String connectionUrl = "jdbc:mysql://127.0.0.1:3306/E107";
 		Connection connection = null;
 		
 		try {
