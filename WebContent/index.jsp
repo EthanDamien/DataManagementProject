@@ -6,76 +6,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E107 - Login</title>
+    <!--meta-->
+	<meta charset = "utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, minimum-scale=1">
+
+  <!--Link bootstrap, css and fonts-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>BuyMe - Home</title>
 </head>
 <body>
-    <%
-    ApplicationDB db = new ApplicationDB();	
-	Connection con = db.getConnection();
 	
-	ResultSet result = null;
-	PreparedStatement ps = null;
+	<h1 id = "welcome"> Welcome to BuyMe! </h1>
+	<a id = "login" href="login.jsp">Login</a>
+	<a id = "register" href="registration.jsp">Register</a>
+	<%
+		try{
+				
+			String temp = (String) session.getAttribute("error");
+				
+			if(temp.equals("Valid")){%>
+				<script>
+					alert('Sucessful Login');
+					document.getElementById("login").classList.add("hidden");
+					document.getElementById("register").classList.add("hidden");
+				</script>
+			<%
+			}session.removeAttribute("error");
+		}catch (Exception ex){
+		}		
+	%>
 	
-    try 
-    {	
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
-        username.toLowerCase();
-        
-        //the query is limiting, case sensitive
-        String query = "SELECT * from users WHERE Username = ?";
-		ps = con.prepareStatement(query);
-        ps.setString(1, username);
-        result = ps.executeQuery();
-        
-        // Check if there a tuple that matches the Username
-        if(result.next()) 
-        {
-            String userPassword = result.getString("password");
-            if(userPassword.equals(password)) 
-            {
-                session.setAttribute("Username", username);
-                session.setAttribute("acountType", result.getInt("type"));
-                session.setAttribute("error", "Valid");
-
-                response.sendRedirect("index.jsp");
-                return;
-            }
-            // Return to Login Page but Display Wrong Credentials
-            else
-            {
-            	session.setAttribute("error", "Invalid");
-            	
-            	response.sendRedirect("login.jsp");
-                return;
-            }
-        }
-     	// Return to Login Page but Display Wrong Credentials
-        else
-        {
-        	session.setAttribute("error", "Invalid");
-        	response.sendRedirect("login.jsp");
-            return;
-        }
-  	} 
-    catch (Exception ex)
-    {
-  		out.print(ex);
-  		out.print("Login failed");
-  	}
-    finally 
-    {
-    	try { result.close(); } catch (Exception e) {}
-        try { ps.close(); } catch (Exception e) {}
-        try { con.close(); } catch (Exception e) {}
-    }
-    %> 
-    
-
-    
+	
 </body>
 </html>
