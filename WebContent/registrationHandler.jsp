@@ -13,7 +13,9 @@
 </head>
 <body>
     <%
-  	
+	ResultSet emailResult = null;
+	PreparedStatement emailPS = null;
+	
     try 
     {
 		ApplicationDB db = new ApplicationDB();	
@@ -28,11 +30,27 @@
 		ResultSet result = stmt.executeQuery(counter);
 		int count = 0;
 		
+		String queryEmail = "SELECT * from users WHERE Email = ?";
+		emailPS = con.prepareStatement(queryEmail);
+		emailPS.setString(1, email);
+		emailResult = emailPS.executeQuery();
+		
+		//Check if the Email Exists in the system
+		if(emailResult.next())
+		{
+			session.setAttribute("error", "Email");
+        	
+        	response.sendRedirect("registration.jsp");
+            return;
+		}
+		
+		//Find the number of tuples to give a User ID
 		if(result.next())
 		{
 			count = result.getInt("COUNT(*)") + 1;
 		}
    
+		//Insert a tuple into the Users table
         String query = "INSERT into users(UserID, Email, Username, Password, Type) values(?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
 		ps.setInt(1, count);
@@ -42,19 +60,17 @@
 		ps.setInt(5, 1);
 		
         ps.executeUpdate();
-    	response.sendRedirect("index.jsp");
+    	response.sendRedirect("login.jsp");
 
         
       	//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
   		con.close();
       	ps.close();
-  		out.print("Registration succeeded");
     
   	} 
     catch (Exception ex)
     {
   		out.print(ex);
-  		out.print("Registration failed");
   	}
     %> 
     

@@ -6,74 +6,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BuyMe - Login</title>
+    <!--meta-->
+	<meta charset = "utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, minimum-scale=1">
+
+  <!--Link bootstrap, css and fonts-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>BuyMe - Register</title>
 </head>
 <body>
-    <%
-	ResultSet emailResult = null;
-	PreparedStatement emailPS = null;
-	
-    try 
-    {
-		ApplicationDB db = new ApplicationDB();	
-		Connection con = db.getConnection();	
-		
-        String email = request.getParameter("userEmail");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
-		Statement stmt = con.createStatement();
-        String counter = "SELECT COUNT(*) FROM users";
-		ResultSet result = stmt.executeQuery(counter);
-		int count = 0;
-		
-		String queryEmail = "SELECT * from users WHERE Email = ?";
-		emailPS = con.prepareStatement(queryEmail);
-		emailPS.setString(1, email);
-		emailResult = emailPS.executeQuery();
-		
-		//Check if the Email Exists in the system
-		if(emailResult.next())
-		{
-			session.setAttribute("error", "Email");
-        	
-        	response.sendRedirect("registration.jsp");
-            return;
-		}
-		
-		//Find the number of tuples to give a User ID
-		if(result.next())
-		{
-			count = result.getInt("COUNT(*)") + 1;
-		}
-   
-		//Insert a tuple into the Users table
-        String query = "INSERT into users(UserID, Email, Username, Password, Type) values(?, ?, ?, ?, ?)";
-        PreparedStatement ps = con.prepareStatement(query);
-		ps.setInt(1, count);
-        ps.setString(2, email);
-        ps.setString(3, username);
-        ps.setString(4, password);
-		ps.setInt(5, 1);
-		
-        ps.executeUpdate();
-    	response.sendRedirect("login.jsp");
+    <div class="headerContainer">
+    	<div class="col-12" id="header">
+            <a href="index.jsp">
+            	<img src="styles/E107logo.png" style="height: 98px; float: left"/>
+            </a>
+        </div>
+    </div>
+    
+  	<div class="navBar">
+    </div>
+   <div id = "registrationForm">
+        <h1 class = "headerGreetings">Nice to Meet You</h1>
+        <form class = "formContainer" action="registrationHandler.jsp" method = "POST">
+            <input class = "textField sweep" type="text" id = "email" name = "userEmail" placeholder= "Email" required>
+        	<input class = "textField sweep" type="text" id = "username" name = "username" placeholder= "Username" required>
+            <input class = "textField sweep" type="password" id = "password" name = "password" placeholder= "Password" required>
+            <input class = "loginButton sweep" type="submit" value = "Register" style="margin-top: 10px;">
+            <a class = "loginOrRegistration" href="login.jsp">Already have an account? Login here.</a>
+        </form>
+    </div>
+    		<%
+			try{
+				String temp = (String) session.getAttribute("error");
 
-        
-      	//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-  		con.close();
-      	ps.close();
-    
-  	} 
-    catch (Exception ex)
-    {
-  		out.print(ex);
-  	}
-    %> 
-    
-  
+				if(temp.equals("Email")){%>
+					<script>
+						alert('Email already exists');
+					</script>
+				<%
+				}session.removeAttribute("error");	 
+			}catch (Exception ex) {
+			}
+				
+			%>
+ 
+    <div id ="products" style = "height: 100vw;"></div>
+    </div>
 </body>
 </html>
