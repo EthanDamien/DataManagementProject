@@ -51,7 +51,7 @@
 		}
    
 		//Insert a tuple into the Users table
-        String query = "INSERT into users(UserID, Email, Username, Password, Type) values(?, ?, ?, ?, ?)";
+        String query = "INSERT into users(UserID, Email, Username, Password, UserType) values(?, ?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
 		ps.setInt(1, count);
         ps.setString(2, email);

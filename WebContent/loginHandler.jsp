@@ -39,7 +39,7 @@
             if(userPassword.equals(password)) 
             {
                 session.setAttribute("Username", username);
-                session.setAttribute("accountType", result.getInt("type"));
+                session.setAttribute("Type", result.getInt("UserType"));
                 session.setAttribute("error", "Valid");
 
                 response.sendRedirect("index.jsp");

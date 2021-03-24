@@ -2,72 +2,67 @@
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--meta-->
 	<meta charset = "utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, minimum-scale=1">
-
   <!--Link bootstrap, css and fonts-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>BuyMe - Home</title>
 </head>
 <body>
-
 	<%
-		String accountType = "";
+	String accountType = "";
+
 		try{
-				
+
 			String temp = (String) session.getAttribute("error");
-			
-			
-			if(temp.equals("Valid")){
+			int accountNum = (Integer) session.getAttribute("Type");
+									
+			switch(accountNum){
+				case(1):
+					accountType = "Admin";
+					break;
+				case(2):
+					accountType = "Customer Support";
+					break;
+				case(3):
+					accountType = "Customer";
+					break;
+		}
+
+		if(temp.equals("Valid")){
 				
-				Integer accountNum = (Integer) session.getAttribute("type");
-				
-				switch(accountNum){
-					case(1):
-						accountType = "Admin";
-						break;
-					case(2):
-						accountType = "Customer";
-						break;
-					case(3):
-						accountType = "Customer Support";
-						break;
-				}
-				System.out.println(accountType);
-				%>
-				<script>
+		%>
+			<script>
+				alert('Sucessful Login');
 				window.onload = function(){
-					document.getElementById("login").classList.add("hidden");
-					document.getElementById("register").classList.add("hidden");
-					document.getElementById("signOut").classList.remove("hidden");
-					//document.getElementById("type").classList.remove("hidden");
-					alert('Sucessful Login');
-				}
-				</script>
+				document.getElementById("login").classList.add("hidden");
+				document.getElementById("register").classList.add("hidden");
+				document.getElementById("logout").classList.remove("hidden");
+				document.getElementById("userType").classList.remove("hidden");
+
+			}
+			</script>
 			<%
 			}session.removeAttribute("error");
 		}catch (Exception ex){
 		}		
 	%>
-
+	
 	<h1 id = "welcome"> Welcome to BuyMe! </h1>
 	<a id = "login" href="login.jsp">Login</a>
 	<a id = "register" href="registration.jsp">Register</a>
-	<p id = "type" class = "hidden"><%= accountType %></p>
-	<form id = "logout" method="link" action="logout.jsp" class = "hidden">
+	<p id = "userType" class = "hidden"><%= accountType %></p>
+	<form id = "logout" method="POST" action="logout.jsp" class = "hidden">
     	<input type="submit" value="Logout"/>
 	</form>
-
-	
 	
 	
 </body>
