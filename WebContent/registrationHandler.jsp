@@ -57,7 +57,7 @@
         ps.setString(2, email);
         ps.setString(3, username);
         ps.setString(4, password);
-		ps.setInt(5, 1);
+		ps.setInt(5, 3);
 		
         ps.executeUpdate();
     	response.sendRedirect("login.jsp");

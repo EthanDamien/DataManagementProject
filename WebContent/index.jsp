@@ -15,24 +15,41 @@
 	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>BuyMe - Home</title>
 </head>
 <body>
-	
-	<h1 id = "welcome"> Welcome to BuyMe! </h1>
-	<a id = "login" href="login.jsp">Login</a>
-	<a id = "register" href="registration.jsp">Register</a>
+
 	<%
+		String accountType = "";
 		try{
 				
 			String temp = (String) session.getAttribute("error");
+			
+			
+			if(temp.equals("Valid")){
 				
-			if(temp.equals("Valid")){%>
+				Integer accountNum = (Integer) session.getAttribute("type");
+				
+				switch(accountNum){
+					case(1):
+						accountType = "Admin";
+						break;
+					case(2):
+						accountType = "Customer";
+						break;
+					case(3):
+						accountType = "Customer Support";
+						break;
+				}
+				System.out.println(accountType);
+				%>
 				<script>
 				window.onload = function(){
 					document.getElementById("login").classList.add("hidden");
 					document.getElementById("register").classList.add("hidden");
+					document.getElementById("signOut").classList.remove("hidden");
+					//document.getElementById("type").classList.remove("hidden");
 					alert('Sucessful Login');
 				}
 				</script>
@@ -41,6 +58,16 @@
 		}catch (Exception ex){
 		}		
 	%>
+
+	<h1 id = "welcome"> Welcome to BuyMe! </h1>
+	<a id = "login" href="login.jsp">Login</a>
+	<a id = "register" href="registration.jsp">Register</a>
+	<p id = "type" class = "hidden"><%= accountType %></p>
+	<form id = "logout" method="link" action="logout.jsp" class = "hidden">
+    	<input type="submit" value="Logout"/>
+	</form>
+
+	
 	
 	
 </body>
