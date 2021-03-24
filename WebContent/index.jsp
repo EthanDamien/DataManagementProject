@@ -47,7 +47,6 @@
 				document.getElementById("register").classList.add("hidden");
 				document.getElementById("logout").classList.remove("hidden");
 				document.getElementById("userType").classList.remove("hidden");
-
 			}
 			</script>
 			<%
