@@ -12,6 +12,13 @@
 	display: none;
 }
 
+.hheader{
+    position: fixed;
+    z-index: 100;
+    background-color: white;
+    width: 100%;
+}
+
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
 .col-3 {width: 25%;}
@@ -38,6 +45,10 @@
   text-decoration: none;
   font-size: 25px;
   
+}
+
+.loginheader {
+    margin-bottom: 20px;
 }
 
 .loginButton {
@@ -70,12 +81,14 @@
 }
 
 
-#products{
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
     position: relative;
     background: rgb(255,255,255);
     padding-top: 100px;
     background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 100%);
-    height: 200vh;
     z-index: 1;
 }
 
@@ -110,7 +123,7 @@ button:focus {
     align-content: center;
 }
 
-.navBar {
+#navBar {
     position: relative;
     height: 40px;
     z-index: 2;
@@ -210,4 +223,28 @@ body{
 
 .headerGreetings {
 	margin: 40px 0px;
+}
+
+.itemCard {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    font-size: larger;
+}
+
+.itemCard img{
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.itemName {
+    background-color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    margin-left: -10px;
+    padding-right: 10px;
+    margin-right: -10px;
+    color: white;
 }
