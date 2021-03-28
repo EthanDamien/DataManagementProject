@@ -2,6 +2,16 @@ body{
     overflow-x: hidden;
 }
 
+a{
+    text-decoration: none;
+    color: inherit
+}
+a:hover{
+    text-decoration: none;
+    color: inherit;
+    background-color: white;
+}
+
 @font-face {
     font-family: StyreneMedium;
     src: url(StyreneMedium.ttf);
@@ -206,6 +216,7 @@ button:focus {
     background-color: black;
     text-align: center;
     color: white;
+    margin-top: 100px;
 }
 
 .formContainer{
@@ -307,6 +318,10 @@ body{
     float: right;
 }
 
+.profileHistory {
+    border-left: 1px solid lightgrey ;
+    border-bottom: 1px solid lightgrey;
+}
 
 .actionButton {
     background-color: #000000;
