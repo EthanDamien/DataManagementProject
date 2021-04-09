@@ -19,9 +19,7 @@
 <body>
 <%
 	String accountType = "";
-
 		try{
-
 			String temp = (String) session.getAttribute("error");
 			int accountNum = (Integer) session.getAttribute("Type");
 									
@@ -36,7 +34,6 @@
 					accountType = "Customer";
 					break;
 		}
-
 		if(temp.equals("Valid")){
 				
 		%>
@@ -47,6 +44,7 @@
 				document.getElementById("register").classList.add("hidden");
 				document.getElementById("logout").classList.remove("hidden");
 				document.getElementById("userType").classList.remove("hidden");
+        document.getElementById("yourProfile").classList.remove("hidden");
 			}
 			</script>
 			<%
@@ -68,7 +66,7 @@
 			</div>
 		</div>
 		<div class="col-12" id="navBar">
-			<a href="profileedit.html" class="goButton">Profile</a>
+			<a id = "yourProfile" href="yourprofile.jsp" class="goButton hidden">Profile</a>
 			<a href="/" class="goButton">Categories</a>
 			<a href="addlisting.html" class="goButton">Sell</a>
 			<a href="/" class="goButton" style="float: right;">About Us</a>
@@ -76,6 +74,7 @@
 	</div>
 	<div id="products">
             <div class="container" style = "padding-top: 200px;">
+            <%-- I think we should have it navigate to the account page to allow for a logout, this is how it usually is --%>
               <form id = "logout" method="POST" action="logout.jsp" class = "hidden">
         <input type="submit" value="Logout"/>
     </form>
