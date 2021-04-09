@@ -19,7 +19,9 @@
 <body>
 <%
 	String accountType = "";
+
 		try{
+
 			String temp = (String) session.getAttribute("error");
 			int accountNum = (Integer) session.getAttribute("Type");
 									
@@ -34,6 +36,7 @@
 					accountType = "Customer";
 					break;
 		}
+
 		if(temp.equals("Valid")){
 				
 		%>

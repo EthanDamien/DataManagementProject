@@ -25,6 +25,7 @@ create table auction(
 	Name varchar(30) not null,
 	ProductDesc varchar(500) not null,
 	Category varchar(100) not null,
+    Notified boolean default false,
 	foreign key (UserID) REFERENCES users(UserID)
 );
 
@@ -88,7 +89,7 @@ insert into users values
 -- foreign key UserID REFERENCES users(User),
 
 insert into auction values
-(1, 2, '2020-01-01', '2020-07-01 05:00:00', 15.00, 0, 1, "Chicken Wing Burger", "Chicken Wing burger is the best burger in the world, fuck you bitch", "food/meat");
+(1, 2, '2020-01-01', '2020-07-01 05:00:00', 15.00, 0, 1, "Chicken Wing Burger", "Chicken Wing burger is the best burger in the world, fuck you bitch", "food/meat", false);
 
 
 select *
