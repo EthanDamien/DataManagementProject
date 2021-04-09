@@ -64,27 +64,21 @@
 			<div style="float: right;">
 			<a id = "login" href="login.jsp" class="headerButton">Log In</a>
 			<a id = "register" href="registration.jsp" class="headerButton">Sign Up</a>
+      <a id = "userType" href="registration.jsp" class="headerButton hidden"><%= accountType %></a>
 			</div>
 		</div>
 		<div class="col-12" id="navBar">
 			<a href="profileedit.html" class="goButton">Profile</a>
 			<a href="/" class="goButton">Categories</a>
-      <p id = "userType" class = "hidden gobutton"><%= accountType %></p>
 			<a href="addlisting.html" class="goButton">Sell</a>
 			<a href="/" class="goButton" style="float: right;">About Us</a>
 		</div>
 	</div>
-	
-	
-	<a id = "login" href="login.jsp">Login</a>
-	<a id = "register" href="registration.jsp">Register</a>
-	
-	
 	<div id="products">
-	<form id = "logout" method="POST" action="logout.jsp" class = "hidden">
-    	<input type="submit" value="Logout"/>
-	</form>
             <div class="container" style = "padding-top: 200px;">
+              <form id = "logout" method="POST" action="logout.jsp" class = "hidden">
+        <input type="submit" value="Logout"/>
+    </form>
                 <div class="row">
                 <!-- card start -->
                   <a class="col-4 itemCard" href="product.html">

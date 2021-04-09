@@ -28,7 +28,7 @@
         </div>
     </div>
     
-  	<div class="navBar">
+  	<div id="navBar">
     </div>
     
     <div id = "loginForm">
