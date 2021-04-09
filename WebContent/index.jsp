@@ -14,10 +14,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <title>BuyMe - Home</title>
+    <title>E107-Home</title>
 </head>
 <body>
-	<%
+<%
 	String accountType = "";
 
 		try{
@@ -54,15 +54,100 @@
 		}catch (Exception ex){
 		}		
 	%>
+	<div class= "hheader">
+		<div class="col-12" id="header">
+			<a href = "productpage.html">
+				<img src="styles/E107logo.png" style="height: 98px; float: left"/>
+			</a>
+			<input id="searchBar" type="text" name="search" placeholder="Search.." style="margin-top: 30px;"/>
+			<a href="/" class="goButton" style="margin-top: 30px;">Go</a>
+			<div style="float: right;">
+			<a id = "login" href="login.jsp" class="headerButton">Log In</a>
+			<a id = "register" href="registration.jsp" class="headerButton">Sign Up</a>
+			</div>
+		</div>
+		<div class="col-12" id="navBar">
+			<a href="profileedit.html" class="goButton">Profile</a>
+			<a href="/" class="goButton">Categories</a>
+      <p id = "userType" class = "hidden gobutton"><%= accountType %></p>
+			<a href="addlisting.html" class="goButton">Sell</a>
+			<a href="/" class="goButton" style="float: right;">About Us</a>
+		</div>
+	</div>
 	
-	<h1 id = "welcome"> Welcome to BuyMe! </h1>
+	
 	<a id = "login" href="login.jsp">Login</a>
 	<a id = "register" href="registration.jsp">Register</a>
-	<p id = "userType" class = "hidden"><%= accountType %></p>
+	
+	
+	<div id="products">
 	<form id = "logout" method="POST" action="logout.jsp" class = "hidden">
     	<input type="submit" value="Logout"/>
 	</form>
-	
+            <div class="container" style = "padding-top: 200px;">
+                <div class="row">
+                <!-- card start -->
+                  <a class="col-4 itemCard" href="product.html">
+                      <img src="assets/img/BurberryJacket.jpg"/>
+                    <h4 class = "itemName">Burberry Work Jacket</h4>
+                    <div>
+                      <h4 style="float:left;">99.99USD</h4>
+                      <h4 style="float:right">3 Bids</h4>
+                    </div>
+                    <div>
+                      <h6 style="float:left; color: red">15mins left</h6>
+                      <h6 style="float:right">Kevin Jones</h6>
+                    </div>
+                    <h6>Buy Now at 479.99USD</h6>
+                  </a>
+                  <!-- card end -->
+                  <div class="col-4 itemCard">
+                    <img src="assets/img/DiorJacket.webp"/>
+                    <h4 class = "itemName">Dior Puffer</h4>
+                    <div>
+                      <h4 style="float:left;">99.99USD</h4>
+                      <h4 style="float:right">3 Bids</h4>
+                    </div>
+                    <div>
+                      <h6 style="float:left; color: red">15mins left</h6>
+                      <h6 style="float:right">Kevin Jones</h6>
+                    </div>
+                    <h6>Buy Now at 479.99USD</h6>
+                  </div>
+                  <div class="col-4 itemCard">
+                    <img src="assets/img/Helmut Jacket.jpg"/>
+                    <h4 class = "itemName">Helmut Lang Leather Jacket</h4>
+                    <div>
+                      <h4 style="float:left;">99.99USD</h4>
+                      <h4 style="float:right">3 Bids</h4>
+                    </div>
+                    <div>
+                      <h6 style="float:left; color: red">15mins left</h6>
+                      <h6 style="float:right">Kevin Jones</h6>
+                    </div>
+                    <h6>Buy Now at 479.99USD</h6>
+                  </div>
+                  <div class="col-4 itemCard">
+                    <img src="assets/img/WeekndJacket.png"/>
+                    <h4 class = "itemName">The Weeknd Daniel Arsham Jacket</h4>
+                    <div>
+                      <h4 style="float:left;">99.99USD</h4>
+                      <h4 style="float:right">3 Bids</h4>
+                    </div>
+                    <div>
+                      <h6 style="float:left; color: red">15mins left</h6>
+                      <h6 style="float:right">Kevin Jones</h6>
+                    </div>
+                    <h6>Buy Now at 479.99USD</h6>
+                  </div>
+              </div>
+            </div>
+          </div>
+            <div id = "footer">
+              <div style = "height: 400px"></div>
+              <h4>Data Management Project</h4>
+              <h4>by Ethan Chang, David Lam, Rachael Chin, Kevin Cubillos</h4>
+            </div>
 	
 </body>
 </html>

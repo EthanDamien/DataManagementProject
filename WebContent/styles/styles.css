@@ -110,7 +110,7 @@ a:hover{
     z-index: 1;
 }
 
-#goButton{
+.goButton{
     color: white;
     float: left;
     background-color:black;
