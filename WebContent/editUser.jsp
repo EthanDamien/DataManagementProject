@@ -19,12 +19,13 @@
 		String username = request.getParameter("usernameEdit");
 	%>
 	<h1> Edit User <%=username%></h1>
-	
+	<h1> Hi</h1>	
 	<form action="editUserHandler.jsp" method="POST">
     	<input type="text" name="newUsername" placeholder = "New Username">
       	<input type="text" name="newEmail" placeholder = "New Email">
       	<input type="hidden" name="oldUsername" value="<%=username%>">
       	<input type="submit" value="Save Changes">
+
     </form>
 	
 	
