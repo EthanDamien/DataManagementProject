@@ -47,6 +47,7 @@
 				document.getElementById("register").classList.add("hidden");
 				document.getElementById("logout").classList.remove("hidden");
 				document.getElementById("userType").classList.remove("hidden");
+        document.getElementById("sell").classList.remove("hidden");
         document.getElementById("yourProfile").classList.remove("hidden");
 			}
 			</script>
@@ -65,13 +66,13 @@
 			<div style="float: right;">
 			<a id = "login" href="login.jsp" class="headerButton">Log In</a>
 			<a id = "register" href="registration.jsp" class="headerButton">Sign Up</a>
-      <a id = "userType" href="registration.jsp" class="headerButton hidden"><%= accountType %></a>
+      <div id = "userType" class="headerButton hidden"><%= accountType %></div>
 			</div>
 		</div>
 		<div class="col-12" id="navBar">
 			<a id = "yourProfile" href="yourprofile.jsp" class="goButton hidden">Profile</a>
 			<a href="/" class="goButton">Categories</a>
-			<a href="addlisting.html" class="goButton">Sell</a>
+			<a id = "sell" href="createAuction.jsp" class="goButton hidden">Sell</a>
 			<a href="/" class="goButton" style="float: right;">About Us</a>
 		</div>
 	</div>
