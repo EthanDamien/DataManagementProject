@@ -27,6 +27,27 @@ create table auction(
 	foreign key (UserID) REFERENCES users(UserID)
 );
 
+create table bid(
+	BidID int not null auto_increment primary key,
+	AuctionID int,
+	UserID int not null,
+    BidAmount double not null,
+	BidCreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
+	foreign key (UserID) REFERENCES users(UserID),
+	foreign key (AuctionID) REFERENCES auction(AuctionID)
+);
+
+create table questions(
+	QuestionID int not null auto_increment primary key,
+	UserID int not null,
+	Question varchar(100) not null, 
+	Description varchar(500) not null,
+	QuestionCreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
+	Answered int not null,
+	Response varchar(500) not null, 
+	foreign key (UserID) REFERENCES users(UserID)
+);
+
 -- I got rid of the Auctioning and product relationships because I don't think we need it. Since it's a bid thing, theres no need to create individual products since the user is going to set them. But Imma leave it here just in case.
 
 -- create table product(
