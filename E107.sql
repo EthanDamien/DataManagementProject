@@ -13,6 +13,9 @@ create table users(
 	UserType int DEFAULT '3' not null
 );
 
+
+
+
 create table auction(
 	AuctionID int not null auto_increment primary key,
 	UserID int not null,
@@ -86,12 +89,12 @@ Login as Customer, Admin, and Customer Support
 ---------------------------------------------------------------*/
 
 insert into users values
-(1,'Username','Password','2021-01-01', '2021-01-01', 'Some place in America', '732-111-1111', 'UsernamePassword@gmail.com', 1),
-(2,'Ethan','12','2021-02-01', '2021-01-01', 'Some place in America', '732-111-1111', 'Ethan12@gmail.com', 1),
-(3,'David','23','2021-03-01', '2021-01-01', 'Some place in America', '732-111-1111', 'David23@gmail.com', 2),
-(4,'Kevin','34','2021-04-01', '2021-01-01', 'Some place in America', '732-111-1111', 'Kevin45@gmail.com', 3),
-(5,'Rachael','45','2021-05-01', '2021-01-01', 'Some place in America', '732-111-1111', 'Rachael56@gmail.com', 1),
-(6,'AJ','67','2021-06-01', '2021-01-01', 'Some place in America', '732-111-1111', 'AJ67@gmail.com', 3);
+(1,'Username','Password','2021-01-01', 'Some place in America', '732-111-1111', 'UsernamePassword@gmail.com', 1),
+(2,'Ethan','12','2021-02-01',  'Some place in America', '732-111-1111', 'Ethan12@gmail.com', 1),
+(3,'David','23','2021-03-01', 'Some place in America', '732-111-1111', 'David23@gmail.com', 2),
+(4,'Kevin','34','2021-04-01',  'Some place in America', '732-111-1111', 'Kevin45@gmail.com', 3),
+(5,'Rachael','45','2021-05-01',  'Some place in America', '732-111-1111', 'Rachael56@gmail.com', 1),
+(6,'AJ','67','2021-06-01',  'Some place in America', '732-111-1111', 'AJ67@gmail.com', 3);
 
 -- (AUCTION REFERENCE) 
 -- AuctionID int primary key,
@@ -106,13 +109,7 @@ insert into users values
 -- Category varchar(100) not null,
 -- foreign key UserID REFERENCES users(User),
 
-insert into auction values
-(1, 2, '2020-01-01', '2020-07-01 05:00:00', 15.00, 0, 1, "Chicken Wing Burger", "Chicken Wing burger is the best burger in the world, fuck you bitch", "food/meat", false);
 
 
-select *
-from auction a 
-join users u 
-on u.UserID = a.UserID
-group by a.AuctionID;
+
 
