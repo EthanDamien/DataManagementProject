@@ -61,4 +61,30 @@ public class Users
 	  	}
     }
     
+    public static ResultSet getAllCustomerReps() throws Exception
+    {
+    	try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+		    ResultSet rs = null;
+
+	        String query = "SELECT * from users WHERE UserType = 2";
+		    Statement st = con.createStatement();
+
+			rs = st.executeQuery(query);
+			return rs;
+
+	    }
+		catch(SQLException se) {
+			System.out.println(se);
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			System.out.println(ex);
+			throw ex;
+	  	}
+    }
+    
 }

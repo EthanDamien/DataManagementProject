@@ -107,5 +107,3 @@ insert into users values
 -- ProductDesc varchar(500) not null,
 -- Category varchar(100) not null,
 -- foreign key UserID REFERENCES users(User),
-
-

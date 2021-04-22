@@ -12,7 +12,7 @@
 
 	<div class= "hheader">
 		<div class="col-12" id="header">
-			<a href = "productpage.html">
+			<a href = "index.jsp">
 				<img src="styles/E107logo.png" style="height: 98px; float: left"/>
 			</a>
 			<input id="searchBar" type="text" name="search" placeholder="Search.." style="margin-top: 30px;"/>
@@ -32,7 +32,6 @@
 			</div>
 		</div>
 		<div class="col-12" id="navBar">
-			<a class="goButton" href="index.jsp">Buy Me</a>
 			<a class="goButton" href="market.jsp">Shop</a>
 			<%  if(session.getAttribute("Username") != null) { 
 				int accountType = (Integer) session.getAttribute("Type");

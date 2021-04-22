@@ -9,13 +9,13 @@ public class Bid {
 		System.out.println("Auction ID:" + auctionID);
 		System.out.println("User ID:" + userID);
 		System.out.println("BidPrice:" + price);
-
+		
 		try 
 	    {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 
-	    	String query = "INSERT INTO bid (AuctionID, UserID, Price) VALUES (?, ?, ?)";
+	    	String query = "INSERT INTO bid (AuctionID, UserID, BidAmount) VALUES (?, ?, ?)";
 	    	PreparedStatement ps = con.prepareStatement(query);
 	    	
 	    	ps.setInt(1, auctionID);
@@ -23,7 +23,7 @@ public class Bid {
 	    	ps.setDouble(3, price);
 	    	ps.executeUpdate();
 
-	    	String updateQuery = "UPDATE auction set Price = Price + ? WHERE auctionID = ?";
+	    	String updateQuery = "UPDATE auction set AuctionPrice = AuctionPrice + ? WHERE AuctionID = ?";
 	    	PreparedStatement psUpdate = con.prepareStatement(updateQuery);
 
 	    	psUpdate.setDouble(1, price);
@@ -50,7 +50,7 @@ public class Bid {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 			
-	    	String query = "Select * FROM bid where auctionID = ? ORDER BY CreatedAt Desc";
+	    	String query = "Select * FROM bid where AuctionID = ? ORDER BY BidCreatedAt Desc";
 	    	PreparedStatement ps = con.prepareStatement(query);
 	    	
 	    	ps.setInt(1, auctionID);
@@ -79,14 +79,14 @@ public class Bid {
 		    ps.setInt(1, bidID);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			int bidPrice = rs.getInt("Price");
+			int bidPrice = rs.getInt("BidAmount");
 
 			String queryTemp = "Select * FROM auction where AuctionID = ?";
 	    	PreparedStatement psTemp = con.prepareStatement(queryTemp);
 		    psTemp.setInt(1, auctionID);
 			ResultSet rsTemp = psTemp.executeQuery();
 			rsTemp.next();
-			int oldMax = rsTemp.getInt("Price");
+			int oldMax = rsTemp.getInt("AuctionPrice");
 			int newPrice = oldMax - bidPrice;
 
 			
@@ -96,7 +96,7 @@ public class Bid {
 		    psDelete.executeUpdate();
 	
 
-		    String updateQuery = "UPDATE auction set Price = ? WHERE AuctionID = ?";
+		    String updateQuery = "UPDATE auction set AuctionPrice = ? WHERE AuctionID = ?";
 	    	PreparedStatement psUpdate = con.prepareStatement(updateQuery);
 	    	psUpdate.setDouble(1, newPrice);
 	    	psUpdate.setInt(2, auctionID);

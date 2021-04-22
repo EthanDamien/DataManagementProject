@@ -12,22 +12,21 @@
 <body>
  	<%
 		int userID = Users.getUserID((String)session.getAttribute("Username")); 
-   		String imageLink = request.getParameter("imageLink"); 
- 		String endDate  = request.getParameter("endDate"); 
- 		int initialPrice = Integer.parseInt(request.getParameter("initialPrice")); 
+ 		String endDate  = request.getParameter("endDate") + " 23:59:59"; 
+ 		System.out.println(endDate);
+ 		int price = Integer.parseInt(request.getParameter("price")); 
 		int reservePrice = Integer.parseInt(request.getParameter("reservePrice")); 
 		int bidIncrement = Integer.parseInt(request.getParameter("bidIncrement")); 
    		String itemName = request.getParameter("itemName"); 
    		String productDescription = request.getParameter("productDescription"); 
  		String category = request.getParameter("category"); 
  		try {	
- 			int auctionID = Auction.createAuction("AuctionID", userID, imageLink, endDate, initialPrice, reservePrice, bidIncrement, itemName, productDescription, category);
-        	response.sendRedirect("index.jsp");
+ 			int auctionID = Auction.createAuction("AuctionID", userID, endDate, price, reservePrice, bidIncrement, itemName, productDescription, category);
+        	response.sendRedirect("product.jsp?auctionID=" + Integer.toString(auctionID));
  	    	return;
  	    }
  			 
  		catch (Exception ex) {
-			System.out.println("error");
  		}
  		    
 	%>
