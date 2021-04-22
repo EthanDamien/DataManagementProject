@@ -19,10 +19,18 @@
 <body>
 	
 	<%@ include file="./Components/navBar.jsp" %>
+	<%
 	
-	<h1 id = "welcome"> Welcome to BuyMe! </h1>
+	if(session.getAttribute("Username") != null){
+	%>
+		<%@ include file="./Components/alertPopUp.jsp" %>
+
+		<%
+	}
+
+	%>
 	<div id="products">
-		<div class="container" style = "padding-top: 200px;">
+		<div class="container" style = "padding-top: 20px;">
 			<div class="row">
 			<!-- card start -->
 			  <a class="col-4 itemCard" href="product.html">

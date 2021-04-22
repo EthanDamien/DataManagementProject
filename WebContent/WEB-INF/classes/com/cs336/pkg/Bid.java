@@ -14,22 +14,49 @@ public class Bid {
 	    {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
+            
+            Statement checkStartingprice = con.createStatement();
+            ResultSet startingPrice = checkStartingprice.executeQuery("SELECT AuctionPrice from auction WHERE AuctionID = "+ auctionID);
+            startingPrice.next();
+            if(startingPrice.getDouble("AuctionPrice") > price){
+                return;
+            } 
 
-	    	String query = "INSERT INTO bid (AuctionID, UserID, BidAmount) VALUES (?, ?, ?)";
-	    	PreparedStatement ps = con.prepareStatement(query);
-	    	
-	    	ps.setInt(1, auctionID);
-	    	ps.setInt(2, userID);
-	    	ps.setDouble(3, price);
-	    	ps.executeUpdate();
+			// if(price == 0.0){
+            //     return;
+            // }
 
-	    	String updateQuery = "UPDATE auction set AuctionPrice = AuctionPrice + ? WHERE AuctionID = ?";
-	    	PreparedStatement psUpdate = con.prepareStatement(updateQuery);
+            String query = "INSERT INTO bid (AuctionID, UserID, BidAmount) VALUES (?, ?, ?)";
+            PreparedStatement ps = con.prepareStatement(query);
+            
+            ps.setInt(1, auctionID);
+            ps.setInt(2, userID);
+            ps.setDouble(3, price);
+            ps.executeUpdate();
 
-	    	psUpdate.setDouble(1, price);
-	    	psUpdate.setInt(2, auctionID);
+            String updateQuery = "UPDATE auction set AuctionPrice = ? WHERE AuctionID = ?";
+            PreparedStatement psUpdate = con.prepareStatement(updateQuery);
 
-	    	psUpdate.executeUpdate();
+            psUpdate.setDouble(1, price);
+            psUpdate.setInt(2, auctionID);
+
+            psUpdate.executeUpdate();
+
+
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM participating WHERE UserID = " + userID + " AND AuctionID = " + auctionID);
+            
+            if(!rs.isBeforeFirst()) {
+                String query2 = "INSERT INTO participating VALUES (?,?,0)";
+                PreparedStatement ps2 = con.prepareStatement(query2);
+                
+                ps2.setInt(1, userID);
+                ps2.setInt(2, auctionID);
+
+                ps2.executeUpdate();
+            }
+            
+            Auction.newBidUpdate(auctionID, userID);
 
 	    	return;
 	    }

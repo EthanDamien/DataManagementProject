@@ -51,6 +51,17 @@ create table questions(
 	foreign key (UserID) REFERENCES users(UserID)
 );
 
+
+create table participating(
+	UserID int not null,
+    AuctionID int not null,
+    NotificationStatus tinyint,
+    foreign key (UserID) references users(UserID),
+    foreign key (AuctionID) references auction(AuctionID)
+);
+
+
+
 -- I got rid of the Auctioning and product relationships because I don't think we need it. Since it's a bid thing, theres no need to create individual products since the user is going to set them. But Imma leave it here just in case.
 
 -- create table product(
@@ -94,6 +105,13 @@ insert into users values
 (4,'Kevin','34','2021-04-01',  'Some place in America', '732-111-1111', 'Kevin45@gmail.com', 3),
 (5,'Rachael','45','2021-05-01',  'Some place in America', '732-111-1111', 'Rachael56@gmail.com', 1),
 (6,'AJ','67','2021-06-01',  'Some place in America', '732-111-1111', 'AJ67@gmail.com', 3);
+
+
+insert into auction values
+	(1, 4, '2021-05-15 5:50:00', 50, 100, 5, "Chicken", "Pee pee poo poo", "food/meat", '2021-05-13' );
+
+
+insert into participating values (4,1,0) on duplicate key update UserID = 4, AuctionID = 1;
 
 -- (AUCTION REFERENCE) 
 -- AuctionID int primary key,

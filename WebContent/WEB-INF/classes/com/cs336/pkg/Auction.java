@@ -113,6 +113,22 @@ public class Auction
 	  	}
 		
 	}
+
+	public static void newBidUpdate(int auctionID, int userID)throws Exception{
+		try {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+			
+			Statement st = con.createStatement();
+			
+			String query = String.format("UPDATE participating SET NotificationStatus = 1 WHERE AuctionID = %d AND UserID <> %d" , auctionID, userID);
+			
+			st.executeUpdate(query);
+		}
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
 	
 	
 	

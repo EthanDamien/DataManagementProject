@@ -86,5 +86,49 @@ public class Users
 			throw ex;
 	  	}
     }
+
+	public static ResultSet getAuctionsIn(int userID)throws Exception {
+    	
+    	try {
+    		ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+			Statement st = con.createStatement();
+			String query = "SELECT AuctionID FROM participating WHERE UserID = " + userID;
+			
+			ResultSet rs = st.executeQuery(query);
+			return rs;
+    	}
+    	catch(Exception ex) {
+    		throw ex;
+    	}
+    }
+
+	public static ResultSet auctionNotifications(int userID)throws Exception{
+		try {
+    		ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+			Statement st = con.createStatement();
+			String query = "SELECT a.AuctionID, NotificationStatus, ItemName FROM participating p JOIN auction a ON p.AuctionID = a.AuctionID WHERE NotificationStatus <> 0 AND p.UserID = " + userID;
+			ResultSet rs = st.executeQuery(query);
+			return rs;
+    	}
+    	catch(Exception ex) {
+    		throw ex;
+    	}
+	}
+
+	public static void gotNotified(int userID)throws Exception{
+		try {
+    		ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+			Statement st = con.createStatement();
+			String query = "UPDATE participating SET NotificationStatus = 0 WHERE UserID = " + userID ;
+			st.executeUpdate(query);
+			
+    	}
+    	catch(Exception ex) {
+    		throw ex;
+    	}
+	}
     
 }
