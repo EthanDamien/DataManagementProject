@@ -21,7 +21,71 @@
 	<%@ include file="./Components/navBar.jsp" %>
 	
 	<h1 id = "welcome"> Welcome to BuyMe! </h1>
-	
+	<div id="products">
+		<div class="container" style = "padding-top: 200px;">
+			<div class="row">
+			<!-- card start -->
+			  <a class="col-4 itemCard" href="product.html">
+				  <img src="assets/img/BurberryJacket.jpg"/>
+				<h4 class = "itemName">Burberry Work Jacket</h4>
+				<div>
+				  <h4 style="float:left;">99.99USD</h4>
+				  <h4 style="float:right">3 Bids</h4>
+				</div>
+				<div>
+				  <h6 style="float:left; color: red">15mins left</h6>
+				  <h6 style="float:right">Kevin Jones</h6>
+				</div>
+				<h6>Buy Now at 479.99USD</h6>
+			  </a>
+			  <!-- card end -->
+			  <div class="col-4 itemCard">
+				<img src="assets/img/DiorJacket.webp"/>
+				<h4 class = "itemName">Dior Puffer</h4>
+				<div>
+				  <h4 style="float:left;">99.99USD</h4>
+				  <h4 style="float:right">3 Bids</h4>
+				</div>
+				<div>
+				  <h6 style="float:left; color: red">15mins left</h6>
+				  <h6 style="float:right">Kevin Jones</h6>
+				</div>
+				<h6>Buy Now at 479.99USD</h6>
+			  </div>
+			  <div class="col-4 itemCard">
+				<img src="assets/img/Helmut Jacket.jpg"/>
+				<h4 class = "itemName">Helmut Lang Leather Jacket</h4>
+				<div>
+				  <h4 style="float:left;">99.99USD</h4>
+				  <h4 style="float:right">3 Bids</h4>
+				</div>
+				<div>
+				  <h6 style="float:left; color: red">15mins left</h6>
+				  <h6 style="float:right">Kevin Jones</h6>
+				</div>
+				<h6>Buy Now at 479.99USD</h6>
+			  </div>
+			  <div class="col-4 itemCard">
+				<img src="assets/img/WeekndJacket.png"/>
+				<h4 class = "itemName">The Weeknd Daniel Arsham Jacket</h4>
+				<div>
+				  <h4 style="float:left;">99.99USD</h4>
+				  <h4 style="float:right">3 Bids</h4>
+				</div>
+				<div>
+				  <h6 style="float:left; color: red">15mins left</h6>
+				  <h6 style="float:right">Kevin Jones</h6>
+				</div>
+				<h6>Buy Now at 479.99USD</h6>
+			  </div>
+		  </div>
+		</div>
+	  </div>
+		<div id = "footer">
+		  <div style = "height: 400px"></div>
+		  <h4>Data Management Project</h4>
+		  <h4>by Ethan Chang, David Lam, Rachael Chin, Kevin Cubillos</h4>
+		</div>
 	
 </body>
 </html>
