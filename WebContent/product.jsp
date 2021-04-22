@@ -36,7 +36,7 @@
 				<div class = "desc">
 				
 					<div class = "desc_row">
-						<h3 id = "desc_itemPrice">Current Bid: $<%=rs.getString("Price")%></h3>
+						<h3 id = "desc_itemPrice">Current Bid: $<%=rs.getString("AuctionPrice")%></h3>
 						<button id = "desc_bidButton" class = "hvr-bob actionButton">Bid Now</button>
 					</div>
 					
@@ -49,7 +49,7 @@
 						
 
 						<div>
-							<p>User: <%=bidRs.getString("UserID")%> &nbsp; Bid Amount: $<%=bidRs.getDouble("Price")%> &nbsp;Time: <%=bidRs.getString("CreatedAt")%></p>
+							<p>User: <%=bidRs.getString("UserID")%> &nbsp; Bid Amount: $<%=bidRs.getDouble("BidAmount")%> &nbsp;Time: <%=bidRs.getString("BidCreatedAt")%></p>
 						</div>
 					</div>
 						<%
@@ -80,7 +80,7 @@
 						<h4 id = "desc_itemPrice">Start Date <strong>Today</strong></h4>
 						<br>     
  			            <br>     						
-						<h4 id = "desc_itemPrice">End Date <strong><%=rs.getString("EndDate")%></strong></h4>
+						<h4 id = "desc_itemPrice">End Date <strong><%=rs.getString("AuctionEnd")%></strong></h4>
 						
 						<button id = "desc_bidButton" class = "hvr-bob actionButton">Watch</button>
 					</div>
