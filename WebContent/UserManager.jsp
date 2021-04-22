@@ -29,15 +29,18 @@
 	    	ResultSet rs;
 	    	String name = request.getParameter("usernameSearch");
 	    	
-	    	rs = st.executeQuery("SELECT * FROM users WHERE username LIKE'%"+name+"%' AND UserType = 3");
-	    	%>
+	    	rs = st.executeQuery("SELECT * FROM users WHERE username LIKE '%"+name+"%' AND UserType = 3");
+	%>
 	    	<table>
 	    	<tr>
 			   <th>Username</th>
 			   <th>UserID</th>
 			   <th>Email</th>
+			   <th>Edit</th>
+			   <th>Delete</th>
+			   
 			</tr>
-  <% 
+  	<% 
 	    	while(rs.next()) {
 	%>
 	<tr> 

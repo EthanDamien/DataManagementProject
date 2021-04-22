@@ -14,7 +14,10 @@
 <title>BuyMe - Profile</title>
 </head>
 <body>
+
+	
 	<%@ include file="./Components/navBar.jsp" %>
+
 	<% if(session.getAttribute("Username") == null){  %>
 	<p>You must be logged in to access your account!</p>
 	<%} else{ 
@@ -25,11 +28,13 @@
 		String username = rs.getString("Username");
 		
 	%>
+	
 	<h1> Welcome <%= username %>!</h1>
 	<%
+	
+
 					}
 	%>
-	
 	
 </body>
 </html>
