@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Bid {
 
-	public static void createBid(int auctionID, int userID, double price) throws SQLException, Exception
+	public static int createBid(int auctionID, int userID, double price, double userBidLimit, double userIncrement) throws SQLException, Exception
 	{	    	
 		System.out.println("Auction ID:" + auctionID);
 		System.out.println("User ID:" + userID);
@@ -16,12 +16,12 @@ public class Bid {
 			Connection con = db.getConnection();	
             
             Statement checkStartingprice = con.createStatement();
-            ResultSet startingPrice = checkStartingprice.executeQuery("SELECT AuctionPrice from auction WHERE AuctionID = "+ auctionID);
-            startingPrice.next();
-            if(startingPrice.getDouble("AuctionPrice") > price){
-                return;
+            ResultSet auctionInfo = checkStartingprice.executeQuery("SELECT AuctionPrice, BidIncrement from auction WHERE AuctionID = "+ auctionID);
+            auctionInfo.next();
+            if(auctionInfo.getDouble("AuctionPrice") + auctionInfo.getDouble("BidIncrement") > price){
+                return 0;
             } 
-
+            
 			// if(price == 0.0){
             //     return;
             // }
@@ -46,19 +46,38 @@ public class Bid {
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM participating WHERE UserID = " + userID + " AND AuctionID = " + auctionID);
             
+			
+
             if(!rs.isBeforeFirst()) {
-                String query2 = "INSERT INTO participating VALUES (?,?,0)";
+                String query2 = "INSERT INTO participating VALUES (?,?,0,?,?)";
                 PreparedStatement ps2 = con.prepareStatement(query2);
                 
                 ps2.setInt(1, userID);
                 ps2.setInt(2, auctionID);
+				ps2.setDouble(3, userBidLimit);
+                ps2.setDouble(4, userIncrement);
+				
 
                 ps2.executeUpdate();
             }
+			else{
+                updateQuery = "UPDATE participating SET autoAmount = ?, increment = ? WHERE UserID = ? AND AuctionID = ?";
+				PreparedStatement fml = con.prepareStatement(updateQuery);
+
+                fml.setDouble(1, userBidLimit);
+                fml.setDouble(2, userIncrement);
+                fml.setInt(3, userID);
+                fml.setInt(4, auctionID);
+				
+                fml.executeUpdate();
+			}
+			Auction.automaticUpdate(auctionID);
             
             Auction.newBidUpdate(auctionID, userID);
+            
 
-	    	return;
+
+	    	return 1;
 	    }
 		catch(SQLException se) {
 			throw se;
@@ -77,7 +96,7 @@ public class Bid {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 			
-	    	String query = "Select * FROM bid where AuctionID = ? ORDER BY BidCreatedAt Desc";
+	    	String query = "Select * FROM bid b JOIN users u ON u.UserID = b.UserID where b.AuctionID = ? ORDER BY b.BidCreatedAt Desc";
 	    	PreparedStatement ps = con.prepareStatement(query);
 	    	
 	    	ps.setInt(1, auctionID);

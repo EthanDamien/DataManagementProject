@@ -26,6 +26,7 @@ create table auction(
 	ItemName varchar(30) not null,
 	ProductDesc varchar(500) not null,
 	Category varchar(100) not null,
+	/* SubCategory varchar(100) not null, */
 	AuctionCreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
 	foreign key (UserID) REFERENCES users(UserID)
 );
@@ -56,6 +57,8 @@ create table participating(
 	UserID int not null,
     AuctionID int not null,
     NotificationStatus tinyint,
+	autoAmount double,
+	increment double,
     foreign key (UserID) references users(UserID),
     foreign key (AuctionID) references auction(AuctionID)
 );
@@ -111,7 +114,7 @@ insert into auction values
 	(1, 4, '2021-05-15 5:50:00', 50, 100, 5, "Chicken", "Pee pee poo poo", "food/meat", '2021-05-13' );
 
 
-insert into participating values (4,1,0) on duplicate key update UserID = 4, AuctionID = 1;
+insert into participating values (4,1,0,0,1) on duplicate key update UserID = 4, AuctionID = 1;
 
 -- (AUCTION REFERENCE) 
 -- AuctionID int primary key,

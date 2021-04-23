@@ -13,8 +13,36 @@
 	int auctionID = Integer.parseInt(request.getParameter("auctionID"));
 	int userID = Integer.parseInt(request.getParameter("userID"));
 	double price = Double.parseDouble(request.getParameter("bidAmount"));
-	
-	
+    String bidLimit = request.getParameter("autoBidLimit");
+	String increment = request.getParameter("BidIncrement");
+
+    Double bidLim = 0.0;
+    Double increm = 0.0;
+    if(bidLimit.length() < 1 || increment.length() < 1){
+        System.out.println("Nothing in here");
+        
+    }
+    else{
+        bidLim = Double.parseDouble(bidLimit);
+        increm = Double.parseDouble(increment); 
+    }
+
+    ResultSet rs = Auction.getAuction(auctionID);
+
+    if(bidLim < price && bidLim != 0.0){
+        out.println("What are you stupid?");
+        out.println("<a href='product.jsp?auctionID="+auctionID+"'>Go back to Product</a>");
+        return;
+    }
+    rs.next();
+    Double currentIncrement = rs.getDouble("BidIncrement");
+    System.out.println(currentIncrement);
+
+    if(currentIncrement > increm && increm != 0.0){
+        out.println("Can you read?");
+        out.println("<a href='product.jsp?auctionID="+auctionID+"'>Go back to Product</a>");
+        return;
+    }
 	
 	try { 
 		ApplicationDB db = new ApplicationDB();	
@@ -39,8 +67,15 @@
 		
 		Statement st = con.createStatement();
 				
-		Bid.createBid(auctionID, userID, price);
-    	response.sendRedirect("product.jsp?auctionID=" + Integer.toString(auctionID));
+		int success = Bid.createBid(auctionID, userID, price, bidLim, increm);
+        
+        if(success == 0){
+            out.println("Cannot place bid that's lower than the current price + increment");
+			out.println("<a href='product.jsp?auctionID="+auctionID+"'>Go back to Product</a>");
+			return;
+        }
+    	
+        response.sendRedirect("product.jsp?auctionID=" + Integer.toString(auctionID));
 	
 		return;
 		

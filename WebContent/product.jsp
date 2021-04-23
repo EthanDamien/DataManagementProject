@@ -36,7 +36,7 @@
 				<div class = "desc">
 				
 					<div class = "desc_row">
-						<h3 id = "desc_itemPrice">Current Bid: $<%=rs.getString("AuctionPrice")%></h3>
+						<h3 id = "desc_itemPrice">Current Bid: <%=rs.getString("AuctionPrice")%>USD</h3>
 						<button id = "desc_bidButton" class = "hvr-bob actionButton">Bid Now</button>
 					</div>
 					
@@ -49,12 +49,13 @@
 						
 
 						<div>
-							<p>User: <%=bidRs.getString("UserID")%> &nbsp; Bid Amount: $<%=bidRs.getDouble("BidAmount")%> &nbsp;Time: <%=bidRs.getString("BidCreatedAt")%></p>
+							<p><%=bidRs.getString("Username")%> bid <%=bidRs.getDouble("BidAmount")%>USD at <%=bidRs.getString("BidCreatedAt")%></p>
 						</div>
 					</div>
 						<%
 						}
 						%>
+			
 						
 					<% 
 						if(session.getAttribute("Username") != null) {
@@ -62,12 +63,13 @@
 					
 					<p>Auto Bid Increment: <%=rs.getString("BidIncrement")%></p>
 					<form action="createBidHandler.jsp" method = "POST">
-						<label>Bid Amount</label>
-						<input class = "textField sweep" type="text" name = "bidAmount" placeholder= "Bid Amount" required>
+						<input class = "textField sweep" type="number" name = "bidAmount" placeholder= "Bid Amount" required>
 						<br>
-						<label>Auto Bid Limit</label>
-			            <input class = "textField sweep" type="password" name = "autoBidLimit" placeholder= "Auto Bid Limit">			
-			            <br>     
+                        <h4>AutoBid (Optional)</h4>
+			            <input class = "textField sweep" type="number" name = "autoBidLimit" placeholder= "Auto Bid Limit">			
+			            <br>
+                        <input class = "textField sweep" type="number" name = "BidIncrement" placeholder= "Bid Increment (greater than current)">
+                        <br>     
 			            <input class = "bid sweep" type="submit" value = "Bid" style="margin-top: 10px;">
 			            <input name = "auctionID" type = "hidden" value="<%=request.getParameter("auctionID")%>">
 			            <input name = "userID" type = "hidden" value="<%=Users.getUserID((String)session.getAttribute("Username")) %>">
