@@ -30,6 +30,10 @@
 
 	%>
 	<div id="products">
+		<%
+			ResultSet validProducts = Auction.orderedNotExpired();
+		%>
+
 		<div class="container" style = "padding-top: 20px;">
 			<div class="row">
 			<!-- card start -->

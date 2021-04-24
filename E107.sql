@@ -128,3 +128,6 @@ insert into participating values (4,1,0,0,1) on duplicate key update UserID = 4,
 -- ProductDesc varchar(500) not null,
 -- Category varchar(100) not null,
 -- foreign key UserID REFERENCES users(User),
+
+--Order and get auctions that are not expired
+--SELECT * FROM auction WHERE CURRENT_TIMESTAMP < AuctionEnd order by AuctionEnd ASC;

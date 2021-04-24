@@ -358,7 +358,22 @@ public class Auction
 		}
 	}
 
-	
-	
-	
+	public static ResultSet orderedNotExpired()throws SQLException, Exception{
+		try{
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+
+			Statement query = con.createStatement();
+			//return a result set of auctions that have not ended in increasing order
+			ResultSet rs = query.executeQuery("SELECT * FROM auction WHERE CURRENT_TIMESTAMP < AuctionEnd order by AuctionEnd ASC");
+            return rs;
+		}
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+
 }

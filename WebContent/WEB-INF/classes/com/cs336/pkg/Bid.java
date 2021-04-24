@@ -100,6 +100,7 @@ public class Bid {
 	    	
 	    	ps.setInt(1, auctionID);
 	    	ResultSet rs = ps.executeQuery();
+			
 	    	
 	    	return rs;
 	    }

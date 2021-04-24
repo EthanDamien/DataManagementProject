@@ -430,3 +430,8 @@ strong {
   .button{
       z-index: 12;
   }
+
+  #history_scrollable{
+      height: 100px;
+      overflow-y: scroll;
+  }
