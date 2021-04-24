@@ -71,10 +71,9 @@ public class Bid {
 				
                 fml.executeUpdate();
 			}
-			Auction.automaticUpdate(auctionID);
+			
             
             Auction.newBidUpdate(auctionID, userID);
-            
 
 
 	    	return 1;

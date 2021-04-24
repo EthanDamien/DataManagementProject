@@ -74,7 +74,7 @@
 			out.println("<a href='product.jsp?auctionID="+auctionID+"'>Go back to Product</a>");
 			return;
         }
-    	
+    	Auction.automaticUpdate(auctionID);
         response.sendRedirect("product.jsp?auctionID=" + Integer.toString(auctionID));
 	
 		return;

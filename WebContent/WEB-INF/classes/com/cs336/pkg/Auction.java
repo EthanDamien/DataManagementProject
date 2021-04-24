@@ -136,6 +136,9 @@ public class Auction
 	public static void automaticUpdate(int auctionID)throws SQLException, Exception{
 
 		try {
+			Thread.sleep(1000);
+			System.out.println("Automatic Update for " + auctionID);
+
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
 			
@@ -144,39 +147,62 @@ public class Auction
             rs1.next();
             int count = rs1.getInt("count");
 
-            System.out.println("Count: "+ count);
+            System.out.println("Count: " + count);
             //No one 
 			if(count == 0){
 				return;
 			}
 			
-			ResultSet rs2 = st.executeQuery("SELECT * FROM participating p join Auction a on a.AuctionID = p. AuctionID WHERE AuctionID = " + auctionID + " AND autoAmount <> 0");
+			
+
+			ResultSet rs2 = st.executeQuery("SELECT * FROM participating p join Auction a on a.AuctionID = p.AuctionID WHERE a.AuctionID = " + auctionID + " AND p.autoAmount <> 0");
 			if(count == 1){
-				rs2.next();
+			 	rs2.next();
 				double currentBid = rs2.getDouble("AuctionPrice");
 				double autoIncrement = rs2.getDouble("increment");
 				double limit = rs2.getDouble("autoAmount");
+
+				System.out.println("current Bid: " + currentBid);
+				System.out.println("Auto Increment: " + autoIncrement);
+				System.out.println("limit: " + limit);
+
 				int user = rs2.getInt("UserID");
 
-				if(limit - currentBid <= autoIncrement ){
-					st.executeUpdate("UPDATE auction SET AuctionPrice = " + limit + " WHERE AuctionID = " + auctionID);
-					st.executeUpdate("UPDATE participation SET autoAmount = 0, increment = 0 WHERE UserID = " + user + " AND AuctionID = " + auctionID);
+				//if the current limit of the highest autobid is less than currentBid
+				//get rid of it
+				if(limit <= currentBid){
+					st.executeUpdate("UPDATE participating SET autoAmount = 0, increment = 0 WHERE UserID = " + user + "AND AuctionID = " + auctionID);
 				}
+				//done... 
+				//if the current limit of highest autobid is more than current bid, increment by 
+				//the specified increment, or until it reaches the limit
 				else{
-					st.executeUpdate("UPDATE auction SET AuctionPrice = " + (currentBid + autoIncrement) + " WHERE AuctionID = " + auctionID);
-
-					//WHERE LEFT OFF
+					double newCurrentBid = 0;
+					//check if auctionprice + increment is more than limit
+					if(currentBid + autoIncrement > limit){
+						newCurrentBid = limit;
+					}
+					else{
+						newCurrentBid = currentBid + autoIncrement;
+						//update current price to current + specified increment
+						
+					}
+					System.out.println("New Current Bid = " + newCurrentBid);
+					String query = "INSERT INTO bid (AuctionID, UserID, BidAmount) VALUES (?, ?, ?)";
+					PreparedStatement ps = con.prepareStatement(query);
 					
+					ps.setInt(1, auctionID);
+					ps.setInt(2, user);
+					ps.setDouble(3, newCurrentBid);
+					ps.executeUpdate();
+					st.executeUpdate("UPDATE auction SET AuctionPrice = " + newCurrentBid + " WHERE AuctionID = " + auctionID);
 				}
-
-
-				
 			}
 
 		 
             // //One person ∂
             // System.out.println("There Exists at least one with autobid");
-
+			return;
             
         }
         catch(SQLException se) {
