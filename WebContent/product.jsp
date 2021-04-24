@@ -24,7 +24,7 @@
 
 	<div id="products">
 		<div class="productImages">
-			<img src="Assets/BurberryJacket.jpg"/>
+			<img src="assets/img/chicken.jpg"/>
 		</div>
 		<% 
 			ResultSet bidRs = null;
@@ -51,7 +51,6 @@
 						<div>
 							<p><%=bidRs.getString("Username")%> bid <%=bidRs.getDouble("BidAmount")%>USD at <%=bidRs.getString("BidCreatedAt")%></p>
 						</div>
-					</div>
 						<%
 						}
 						%>
@@ -66,11 +65,12 @@
 						<input class = "textField sweep" type="number" name = "bidAmount" placeholder= "Bid Amount" required>
 						<br>
                         <h4>AutoBid (Optional)</h4>
-			            <input class = "textField sweep" type="number" name = "autoBidLimit" placeholder= "Auto Bid Limit">			
+						<h6><strong>This amount will possibly be bid if a bid war exists</strong></h6>
+			            <input class = "textField sweep " type="number" name = "autoBidLimit" placeholder= "Auto Bid Limit">			
 			            <br>
                         <input class = "textField sweep" type="number" name = "BidIncrement" placeholder= "Bid Increment (greater than current)">
                         <br>     
-			            <input class = "bid sweep" type="submit" value = "Bid" style="margin-top: 10px;">
+			            <input id = "desc_bidButton" class = "bid sweep hvr-bob actionButton" type="submit" value = "Bid Now" style="margin-top: 10px;">
 			            <input name = "auctionID" type = "hidden" value="<%=request.getParameter("auctionID")%>">
 			            <input name = "userID" type = "hidden" value="<%=Users.getUserID((String)session.getAttribute("Username")) %>">
 					</form>
@@ -78,6 +78,7 @@
 					<%}else{ %>
 					<a class="link" href="login.jsp">Login to Bid!</a>
 					<%} %>
+					</div>
 					<div class = "desc_row">
 						<h4 id = "desc_itemPrice">Start Date <strong>Today</strong></h4>
 						<br>     

@@ -121,7 +121,7 @@ public class Auction
 			
 			Statement st = con.createStatement();
 			
-			String query = String.format("UPDATE participating SET NotificationStatus = 1 WHERE AuctionID = %d AND UserID <> %d" , auctionID, userID);
+			String query = String.format("UPDATE participating SET NotificationStatus = 1 WHERE AuctionID = %d AND UserID <> %d AND NotificationStatus = 0" , auctionID, userID);
 			
 			st.executeUpdate(query);
 		}
@@ -133,9 +133,11 @@ public class Auction
 		}
 	}
 
-	public static void automaticUpdate(int auctionID)throws SQLException, Exception{
+
+	public static void automaticUpdate(int auctionID, int currUserID)throws SQLException, Exception{
 
 		try {
+			//The wait is so the bid doesn't happen at exactly the same time
 			Thread.sleep(1000);
 			System.out.println("Automatic Update for " + auctionID);
 
@@ -150,6 +152,7 @@ public class Auction
             System.out.println("Count: " + count);
             //No one 
 			if(count == 0){
+				Auction.newBidUpdate(auctionID, currUserID);
 				return;
 			}
 			
@@ -171,7 +174,11 @@ public class Auction
 				//if the current limit of the highest autobid is less than currentBid
 				//get rid of it
 				if(limit <= currentBid){
-					st.executeUpdate("UPDATE participating SET autoAmount = 0, increment = 0 WHERE UserID = " + user + "AND AuctionID = " + auctionID);
+					String query = "UPDATE participating SET autoAmount = 0, increment = 0, NotificationStatus = 2 WHERE UserID = ? AND AuctionID = ?";
+					PreparedStatement ps = con.prepareStatement(query);
+					ps.setInt(1, user);
+					ps.setInt(2, auctionID);
+					ps.executeUpdate();
 				}
 				//done... 
 				//if the current limit of highest autobid is more than current bid, increment by 
@@ -181,12 +188,18 @@ public class Auction
 					//check if auctionprice + increment is more than limit
 					if(currentBid + autoIncrement > limit){
 						newCurrentBid = limit;
+						String query = "UPDATE participating SET autoAmount = 0, increment = 0, NotificationStatus = 2 WHERE UserID = ? AND AuctionID = ?";
+						PreparedStatement ps = con.prepareStatement(query);
+						ps.setInt(1, user);
+						ps.setInt(2, auctionID);
+						ps.executeUpdate();
 					}
 					else{
 						newCurrentBid = currentBid + autoIncrement;
 						//update current price to current + specified increment
 						
 					}
+					//Leading = the only autobid
 					System.out.println("New Current Bid = " + newCurrentBid);
 					String query = "INSERT INTO bid (AuctionID, UserID, BidAmount) VALUES (?, ?, ?)";
 					PreparedStatement ps = con.prepareStatement(query);
@@ -195,13 +208,145 @@ public class Auction
 					ps.setInt(2, user);
 					ps.setDouble(3, newCurrentBid);
 					ps.executeUpdate();
+					
 					st.executeUpdate("UPDATE auction SET AuctionPrice = " + newCurrentBid + " WHERE AuctionID = " + auctionID);
+					Auction.newBidUpdate(auctionID, user);
 				}
 			}
+			//bid war time
+			if(count == 2){
+				//problem...  We don't know who should automatically bid first
+				rs2.next();
+				double currentBid = rs2.getDouble("AuctionPrice");
+				double autoIncrement1 = rs2.getDouble("increment");
+				double limit1 = rs2.getDouble("autoAmount");
+				int user1 = rs2.getInt("UserID");
+				System.out.println("User: " + user1);
+				System.out.println("current Bid: " + currentBid);
+				System.out.println("Auto Increment: " + autoIncrement1);
+				System.out.println("limit: " + limit1);
 
-		 
-            // //One person ∂
-            // System.out.println("There Exists at least one with autobid");
+				rs2.next();
+				double autoIncrement2 = rs2.getDouble("increment");
+				double limit2 = rs2.getDouble("autoAmount");
+				int user2 = rs2.getInt("UserID");
+
+				System.out.println("User: " + user2);
+				System.out.println("current Bid: " + currentBid);
+				System.out.println("Auto Increment: " + autoIncrement2);
+				System.out.println("limit: " + limit2);
+
+				int userToBid = 0;
+
+				if(user1 == currUserID){
+					System.out.println("User " + user2 + " should go first.");
+					userToBid = 2;
+
+
+				}
+				else{
+					System.out.println("User " + user1 + " should go first.");
+					userToBid = 1;
+				}
+
+
+				double newCurrentBid = 0;
+				boolean possible = true;
+				while(possible){
+					//Thread.sleep(200);
+					//first, check if next user can increment, then increment if possible
+					switch (userToBid){
+						case 1:
+							if(limit1 <= newCurrentBid){
+								//discard autobid and break;
+								possible = false;
+							}
+							else{
+								if(newCurrentBid + autoIncrement1 > limit1){
+									System.out.println("Point: " + 1);
+									newCurrentBid = limit1;
+									String query = "UPDATE participating SET autoAmount = 0, increment = 0 WHERE UserID = ? AND AuctionID = ?";
+									PreparedStatement ps = con.prepareStatement(query);
+									ps.setInt(1, user1);
+									ps.setInt(2, auctionID);
+									ps.executeUpdate();
+								}
+								else{
+									System.out.println("Point: " + 2);
+									newCurrentBid = newCurrentBid + autoIncrement1;
+									//update current price to current + specified increment
+								}
+								System.out.println("New Current Bid = " + newCurrentBid);
+								String query = "INSERT INTO bid (AuctionID, UserID, BidAmount) VALUES (?, ?, ?)";
+								PreparedStatement ps = con.prepareStatement(query);
+								ps.setInt(1, auctionID);
+								ps.setInt(2, user1);
+								ps.setDouble(3, newCurrentBid);
+								ps.executeUpdate();
+								st.executeUpdate("UPDATE auction SET AuctionPrice = " + newCurrentBid + " WHERE AuctionID = " + auctionID);
+
+								//give turn to other user
+								userToBid = 2;
+							}
+							break;
+						case 2: 
+							//checking user 2
+							if(limit2 <= newCurrentBid){
+								//discard autobid and break;
+								possible = false;
+							}
+							else{
+								if(newCurrentBid + autoIncrement2 > limit2){
+									System.out.println("Point: " + 3);
+									newCurrentBid = limit2;
+									String query = "UPDATE participating SET autoAmount = 0, increment = 0 WHERE UserID = ? AND AuctionID = ?";
+									PreparedStatement ps = con.prepareStatement(query);
+									ps.setInt(1, user2);
+									ps.setInt(2, auctionID);
+									ps.executeUpdate();
+								}
+								else{
+									System.out.println("Point: " + 4);
+									newCurrentBid = newCurrentBid + autoIncrement2;
+									//update current price to current + specified increment
+								}
+								System.out.println("New Current Bid = " + newCurrentBid);
+								String query = "INSERT INTO bid (AuctionID, UserID, BidAmount) VALUES (?, ?, ?)";
+								PreparedStatement ps = con.prepareStatement(query);
+								ps.setInt(1, auctionID);
+								ps.setInt(2, user2);
+								ps.setDouble(3, newCurrentBid);
+								ps.executeUpdate();
+								st.executeUpdate("UPDATE auction SET AuctionPrice = " + newCurrentBid + " WHERE AuctionID = " + auctionID);
+
+								//give turn to other user
+								userToBid = 1;
+							}
+						break;
+					}
+
+				}
+				String query = "UPDATE participating SET autoAmount = 0, increment = 0, NotificationStatus = 2 WHERE UserID = ? AND AuctionID = ?";
+				PreparedStatement ps = con.prepareStatement(query);
+
+				switch(userToBid){
+					case 1: 
+						ps.setInt(1, user1);
+						ps.setInt(2, auctionID);
+						ps.executeUpdate();
+						Auction.newBidUpdate(auctionID, user2);
+					break;
+					case 2: 
+						ps.setInt(1, user2);
+						ps.setInt(2, auctionID);
+						ps.executeUpdate();
+						Auction.newBidUpdate(auctionID, user1);
+					break;
+				}
+				//discard the losing autobid
+
+
+			}
 			return;
             
         }
@@ -212,6 +357,7 @@ public class Auction
 			throw ex;
 		}
 	}
+
 	
 	
 	

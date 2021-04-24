@@ -73,7 +73,7 @@ public class Bid {
 			}
 			
             
-            Auction.newBidUpdate(auctionID, userID);
+            
 
 
 	    	return 1;
@@ -95,7 +95,7 @@ public class Bid {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 			
-	    	String query = "Select * FROM bid b JOIN users u ON u.UserID = b.UserID where b.AuctionID = ? ORDER BY b.BidCreatedAt Desc";
+	    	String query = "Select * FROM bid b JOIN users u ON u.UserID = b.UserID where b.AuctionID = ? ORDER BY b.BidAmount Desc";
 	    	PreparedStatement ps = con.prepareStatement(query);
 	    	
 	    	ps.setInt(1, auctionID);

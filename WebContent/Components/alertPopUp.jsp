@@ -32,26 +32,37 @@
                     
                 %>
                     <div>
-                        <p>Theres a new bid on <%=notifRS.getString("ItemName")%></p>
+                        <p>Theres a new bid on <a href='product.jsp?auctionID=<%=notifRS.getInt("auctionID") %>'><%=notifRS.getString("ItemName")%></a></p>
                         <script>
                             document.getElementById("notifyModal").style.display = "block";  
                         </script>
                     </div>
+                <% 
+                }
+                else if(notifRS.getInt("NotificationStatus") == 2){
+                
+                    %>
+                        <div>
+                            <p>Your autolimit has been surpassed on <a href='product.jsp?auctionID=<%=notifRS.getInt("auctionID") %>'><%=notifRS.getString("ItemName")%></a></p>
+                            <script>
+                                document.getElementById("notifyModal").style.display = "block";  
+                            </script>
+                        </div>
                 <%
+                    
                 
                     }
-                    else if(notifRS.getInt("NotificationStatus") == 2){
+                    else if(notifRS.getInt("NotificationStatus") == 3){
                      
                 %>
                     <div>
-                        <p>You won an auction on <%=notifRS.getString("ItemName")%></p>
+                        <p>You won an auction on <a href='product.jsp?auctionID=<%=notifRS.getInt("auctionID") %>'><%=notifRS.getString("ItemName")%></a></p>
                         <script>
                                 document.getElementById("notifyModal").style.display = "block";       
                         </script>
                     </div>
                 
-                <%
-                    }
+                <%}
 
                     Users.gotNotified(userID);
                 %>
