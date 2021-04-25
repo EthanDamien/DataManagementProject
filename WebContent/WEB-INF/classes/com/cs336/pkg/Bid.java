@@ -138,6 +138,31 @@ public class Bid {
 	  	}
 	}
 
+	public static ResultSet userWinHistory(int userID) throws SQLException, Exception
+	{		
+		try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+			
+	    	String query = "Select * from auction WHERE WinnerID = ? ORDER BY AuctionEnd DESC";
+	    	PreparedStatement ps = con.prepareStatement(query);
+	    	
+	    	ps.setInt(1, userID);
+	    	ResultSet rs = ps.executeQuery();
+			
+	    	
+	    	return rs;
+	    }
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			throw ex;
+	  	}
+	}
+
 	public static void deleteBid(int auctionID, int bidID)throws Exception
 	{
 		try 

@@ -72,17 +72,34 @@
                           int i = 0;
                           while(history.next()){
                             i = 1;
-                            int AuctionID = validProducts.getInt("auctionID"); 
+                            String itemname = history.getString("itemname");
                         %>
 
-                        <p><%=history.getString("Username")%> bid <%=history.getDouble("BidAmount")%>USD at <%=history.getString("BidCreatedAt")%> for <a style="color: orange" href="product.jsp?auctionID=<%=history.getInt("AuctionId")%>"> </a> </p>
+                        <p><%=history.getString("Username")%> bid <%=history.getDouble("BidAmount")%>USD at <%=history.getString("BidCreatedAt")%> for <a style="color: orange" href="product.jsp?auctionID=<%=history.getInt("AuctionId")%>"><%=itemname%></a> </p>
                         
                         <% } 
                         if(i == 0){
                             out.println("No bids yet");
                           }%> 
                         </div>
+                        <h4><%=Users.getUsername(userID)%>'s Recent Wins</h4>
+                        <div id = "history_scrollable2">
+                        <%
+                          
+                          ResultSet wins = Bid.userWinHistory(userID);
+                          i = 0;
+                          while(wins.next()){
+                            i = 1;
+                            String itemname = wins.getString("itemname");
+                        %>
+
+                        <p><%=Users.getUsername(userID)%> Won <a style="color: orange" href="product.jsp?auctionID=<%=wins.getInt("AuctionId")%>"><%=itemname%></a> for <%=wins.getDouble("AuctionPrice")%>USD</p>
                         
+                        <% } 
+                        if(i == 0){
+                            out.println("No bids yet");
+                          }%> 
+                        </div>
                     </div>
                 </div>
                 

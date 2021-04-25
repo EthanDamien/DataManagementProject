@@ -65,15 +65,16 @@
                         </div>
                     </div>
                     <div class = "col-3 profileHistory">
-                        <h4>My History</h4>
+                        <h4>My Recent Bids</h4>
                         <div id = "history_scrollable2">
                           <% ResultSet bidRs = Bid.userBidHistory(userID);
                             int i = 0;
                             while(bidRs.next()){
                               i=1;
+                              String itemname1 = bidRs.getString("itemname");
                           %>
                             <div>
-                              <p><%=bidRs.getString("Username")%> bid <%=bidRs.getDouble("BidAmount")%>USD at <%=bidRs.getString("BidCreatedAt")%></p>
+                              <p><%=bidRs.getString("Username")%> bid <%=bidRs.getDouble("BidAmount")%>USD at <%=bidRs.getString("BidCreatedAt")%> for <a style="color: orange" href="product.jsp?auctionID=<%=bidRs.getInt("AuctionId")%>"><%=itemname1%></a></p>
                             </div>
                           <%
                           }
@@ -83,7 +84,25 @@
                           }
                           %>
 					            	</div>
-                        
+                        <h4>My Recent Wins</h4>
+                        <div id = "history_scrollable2">
+                          <% ResultSet wins = Bid.userWinHistory(userID);
+                            i = 0;
+                            while(wins.next()){
+                              i=1;
+                              String itemname = wins.getString("itemname");
+                          %>
+                            <div>
+                              <p><%=Users.getUsername(userID)%> Won <a style="color: orange" href="product.jsp?auctionID=<%=wins.getInt("AuctionId")%>"><%=itemname%></a> for <%=wins.getDouble("AuctionPrice")%>USD</p>
+                            </div>
+                          <%
+                          }
+
+                          if(i == 0){
+                            out.println("No bids yet");
+                          }
+                          %>
+					            	</div>
                     </div>
                 </div>
                 
