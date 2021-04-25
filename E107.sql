@@ -14,8 +14,6 @@ create table users(
 );
 
 
-
-
 create table auction(
 	AuctionID int not null auto_increment primary key,
 	UserID int not null,
@@ -103,16 +101,30 @@ Login as Customer, Admin, and Customer Support
 ---------------------------------------------------------------*/
 
 insert into users values
-(1,'Username','Password','2021-01-01', 'Some place in America', '732-111-1111', 'UsernamePassword@gmail.com', 1),
-(2,'Ethan','12','2021-02-01',  'Some place in America', '732-111-1111', 'Ethan12@gmail.com', 1),
-(3,'David','23','2021-03-01', 'Some place in America', '732-111-1111', 'David23@gmail.com', 2),
-(4,'Kevin','34','2021-04-01',  'Some place in America', '732-111-1111', 'Kevin45@gmail.com', 3),
-(5,'Rachael','45','2021-05-01',  'Some place in America', '732-111-1111', 'Rachael56@gmail.com', 1),
-(6,'AJ','67','2021-06-01',  'Some place in America', '732-111-1111', 'AJ67@gmail.com', 3);
+(UserID,'Username','Password','2021-01-01', 'Some place in America', '732-111-1111', 'UsernamePassword@gmail.com', 1),
+(UserID,'Ethan','12','2021-02-01',  'Some place in America', '732-111-1111', 'Ethan12@gmail.com', 1),
+(UserID,'David','23','2021-03-01', 'Some place in America', '732-111-1111', 'David23@gmail.com', 2),
+(UserID,'Kevin','34','2021-04-01',  'Some place in America', '732-111-1111', 'Kevin45@gmail.com', 3),
+(UserID,'Rachael','56','2021-05-01',  'Some place in America', '732-111-1111', 'Rachael56@gmail.com', 1),
+(UserID,'AJ','11','2021-06-01',  'Some place in America', '732-111-1111', 'AJ67@gmail.com', 3),
+(UserID,'James','11','2021-06-01',  'Some place in America', '732-111-1111', 'James@gmail.com', 3),
+(UserID,'Monkey','11','2021-06-01',  'Some place in America', '732-111-1111', 'Monkey@gmail.com', 3),
+(UserID,'Will','11','2021-06-01',  'Some place in America', '732-111-1111', 'Will@gmail.com', 3),
+(UserID,'Mark','11','2021-06-01',  'Some place in America', '732-111-1111', 'Mark@gmail.com', 3);
 
 
 insert into auction values
-	(1, 4, '2021-05-15 5:50:00', 50, 100, 5, "Chicken", "Pee pee poo poo", "food/meat", -1, '2021-05-13' );
+(AuctionID, 4, '2021-04-25 11:55:00', 250, 300, 10, "Dior Pants", "Pee pee poo poo", "clothes", "pants" , -1, '2021-01-13' ),
+(AuctionID, 6, '2021-04-25 11:55:00', 350, 400, 10, "Gucci Pants", "Pee pee poo poo", "clothes", "pants" , -1, '2021-02-13' ),
+(AuctionID, 6, '2021-04-25 11:55:00', 40, 50, 3, "Nike shoes", "Pee pee poo poo", "shoes", "running" , -1, '2021-01-13' ),
+(AuctionID, 10, '2021-04-25 11:55:00', 45, 45, 3, "Ipad", "Pee pee poo poo", "electronics", "tablet" , -1, '2021-02-13' ),
+
+(AuctionID, 7, '2021-05-20 4:25:00', 250, 300, 10, "Dior Pants", "Pee pee poo poo", "clothes", "pants" , -1, '2021-05-13' ),
+(AuctionID, 7, '2021-05-14 4:50:00', 350, 400, 10, "Gucci Pants", "Pee pee poo poo", "clothes", "pants" , -1, '2021-05-13' ),
+(AuctionID, 5, '2021-05-15 5:50:00', 40, 50, 3, "Nike Pants", "Pee pee poo poo", "clothes", "pants" , -1, '2021-05-13' ),
+(AuctionID, 6, '2021-05-17 6:50:00', 30, 40, 2, "Dime Hoodie", "Pee pee poo poo", "clothes", "hoodies" , -1, '2021-05-13' ),
+(AuctionID, 4, '2021-05-19 7:50:00', 50, 50, 4, "Supreme Hoodie", "Pee pee poo poo", "clothes", "hoodies" , -1, '2021-05-13' ),
+(AuctionID, 10, '2021-05-30 8:50:00', 45, 45, 3, "Cuban Link Chain", "Pee pee poo poo", "jewelry", "necklace" , -1, '2021-05-13' );
 
 
 insert into participating values (4,1,0,0,1) on duplicate key update UserID = 4, AuctionID = 1;

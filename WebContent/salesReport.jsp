@@ -75,7 +75,7 @@
 			while(rs.next()) {%>
 			<tr> 
 				<td><%=rs.getString("EarningsPerItemType")%></td>
-				<td><%=rs.getString("subCategory")%></td>
+				<td><%=rs.getString("Category")%></td>
 				
 			</tr>
 			<%} %></table><%
@@ -85,6 +85,7 @@
 			<h2> Sales Report for Earnings Per User</h2>
 			<table class="table-sm table-dark">
 				<tr>
+					<td>Username</td>
 					<th>UserID</th>
 				   	<th>Earnings Per User</th>
 				</tr>
@@ -92,26 +93,26 @@
 			
 			while(rs.next()) {%>
 			<tr> 
+				<td><%= Users.getUsername(Integer.parseInt(rs.getString("UserID")))%></td>
 				<td><%=rs.getString("UserID")%></td>
 				<td>$<%=rs.getString("EarningPerUser")%></td>
 			</tr>
 			<%} %></table><%
-		}else if(salesReportType == "bestItem"){
+		}else if(salesReportType.equals("bestItem")){
 			ResultSet rs = salesReport.bestItem();
 			%>
 			<h2> Sales Report for Best Items</h2>
-			<table>
+			<table class="table-sm table-dark">
 				<tr>
-				   <th>Earnings Per Item Type</th>
-				   <th>Item Category</th>
+					<th>Item Name</th>
+				   	<th>Number of Items Sold</th>
 				</tr>
 			<% 
 			
 			while(rs.next()) {%>
 			<tr> 
+				<td><%=rs.getString("ItemName")%></td>
 				<td><%=rs.getString("NumberOfItems")%></td>
-				<td><%=rs.getString("SubCategory")%></td>
-				
 			</tr>
 			<%} %></table><%
 		}else if(salesReportType.equals("bestBuyer")){
@@ -120,15 +121,17 @@
 			<h2> Sales Report for Best Buyer</h2>
 			<table class="table-sm table-dark">
 				<tr>
-				   <th>Best Buyer</th>
-				   <th>Amount</th>
+					<th>Best Buyer Username</th>
+				   <th>Best Buyer User ID</th>
+				   <th>Bids Won</th>
 				</tr>
 			<% 
 			
 			while(rs.next()) {%>
 			<tr> 
-				<td><%=rs.getString("UserID")%></td>
-				<td><%=rs.getString("SumSold")%></td>
+				<td><%= Users.getUsername(Integer.parseInt(rs.getString("WinnerID")))%></td>
+				<td><%=rs.getString("WinnerID")%></td>
+				<td><%=rs.getString("BidsWon")%></td>
 				
 			</tr>
 			<%} %></table><%

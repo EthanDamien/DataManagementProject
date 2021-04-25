@@ -17,7 +17,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT SUM(auctionPrice) totalEarnings FROM auction WHERE TIMESTAMP(AuctionEnd) < '"+date+"' AND AuctionPrice > ReservePrice";	
+		    String query="SELECT SUM(auctionPrice) AS totalEarnings FROM auction WHERE TIMESTAMP(AuctionEnd) <= CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice";	
 		    
 		    Statement st = con.createStatement();
 
@@ -43,7 +43,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT SUM(auctionPrice) EarningsPerItem, subCategory FROM auction WHERE TIMESTAMP(AuctionEnd) < '"+date+"' AND AuctionPrice > ReservePrice GROUP BY SubCategory ORDER BY EarningsPerItemType DESC";	
+		    String query="SELECT SUM(auctionPrice) EarningsPerItem, Subcategory FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY Subcategory ORDER BY EarningsPerItem DESC";	
 		    
 		    Statement st = con.createStatement();
 
@@ -69,7 +69,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT SUM(auctionPrice) EarningsPerItemType, Category FROM auction WHERE TIMESTAMP(AuctionEnd) < '"+date+"' AND AuctionPrice > ReservePrice GROUP BY Category ORDER BY EarningsPerItemType DESC";	
+		    String query="SELECT SUM(auctionPrice) EarningsPerItemType, Category FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY Category ORDER BY EarningsPerItemType DESC";	
 		    
 		    Statement st = con.createStatement();
 
@@ -95,7 +95,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT SUM(auctionPrice) EarningPerUser, UserID FROM auction WHERE TIMESTAMP(AuctionEnd) < '"+date+"' AND AuctionPrice > ReservePrice GROUP BY UserID ORDER BY EarningPerUser DESC";	
+		    String query="SELECT SUM(auctionPrice) EarningPerUser, UserID FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY UserID ORDER BY EarningPerUser DESC";	
 		    
 		    Statement st = con.createStatement();
 
@@ -121,7 +121,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT COUNT(*) NumberOfItems, SubCategory FROM auction WHERE TIMESTAMP(AuctionEnd) < '"+date+"' AND AuctionPrice > ReservePrice GROUP BY SubCategory ORDER BY NumberOfItems DESC";	
+		    String query="SELECT ItemName, COUNT(*) AS NumberOfItems FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY ItemName ORDER BY NumberOfItems DESC";	
 		    
 		    Statement st = con.createStatement();
 
@@ -138,6 +138,7 @@ public class salesReport
 	  	}
 	}
 	
+	// Won the most auctions
 	public static ResultSet bestBuyer() throws SQLException, Exception
 	{
 		try 
@@ -147,7 +148,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT SUM(AuctionPrice) SumSold, UserID FROM auction WHERE TIMESTAMP(AuctionEnd) < '"+date+"' AND AuctionPrice > ReservePrice GROUP BY UserID ORDER BY SumSold DESC";	
+		    String query= "Select WinnerID, Count(*) AS BidsWon from auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY WinnerID ORDER BY BidsWon DESC";	
 		    
 		    Statement st = con.createStatement();
 

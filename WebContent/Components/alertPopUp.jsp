@@ -69,7 +69,7 @@
                 
 
         <% } %>
-        <span class = "goButton closebutton" >close</span>
+        <span class = "goButton anima closebutton" >close</span>
         </div>
     </div>
     <script>
@@ -92,4 +92,4 @@
       // When the user clicks anywhere outside of the modal, close it
       </script>
 </body>
-</html>i
+</html>

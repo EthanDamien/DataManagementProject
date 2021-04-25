@@ -15,8 +15,6 @@
 			<a href = "index.jsp">
 				<img src="styles/E107logo.png" style="height: 98px; float: left"/>
 			</a>
-			<input id="searchBar" type="text" name="search" placeholder="Search.." style="margin-top: 30px;"/>
-			<a href="/" class="goButton" style="margin-top: 30px;">Go</a>
 			<div style="float: right;">
 
 
@@ -26,7 +24,7 @@
 			<a id = "register" href="registration.jsp" class="headerButton">Sign Up</a>
 			
 			<%}else{ %>
-			<a class="goButton" href="logout.jsp">Logout</a>
+			<a class="goButton anima" href="logout.jsp">Logout</a>
 			<%} %>
 			
 			</div>
@@ -35,21 +33,21 @@
 			<%  if(session.getAttribute("Username") != null) { 
 				int accountType = (Integer) session.getAttribute("Type");
 				if(accountType == 1){
-			%> <a class="goButton" href="adminHome.jsp">Admin Home</a><% 
+			%> <a class="goButton anima" href="adminHome.jsp">Admin Home</a><% 
 				 }else if(accountType == 2) {
-			%> <a class="goButton" href="customerRepHome.jsp">Customer Representative Home</a><% 
+			%> <a class="goButton anima" href="customerRepHome.jsp">Customer Representative Home</a><% 
 			}
 			%>
 						
-			<a class="goButton" href="questions.jsp">Questions</a>
+			<a class="goButton anima" href="questions.jsp">Questions</a>
 			<% if(accountType == 3){%>
-			<a class="goButton" href="createAuction.jsp">Add Listing +</a>
-			<a class="goButton" href="yourProfile.jsp">My Profile</a>
+			<a class="goButton anima" href="createAuction.jsp">Add Listing +</a>
+			<a class="goButton anima" href="yourProfile.jsp">My Profile</a>
 			<%} %>
 			
 
 			<% } else { %>
-			<a class="goButton" href="questions.jsp">Questions</a>
+			<a class="goButton anima" href="questions.jsp">Questions</a>
 			<% } %>
 		</div>
 	</div>

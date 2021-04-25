@@ -133,14 +133,36 @@ public class Auction
 		}
 	}
 
-	public static ResultSet orderedNotExpired(int a)throws SQLException, Exception{
+	public static ResultSet getValidProducts(int filter, String SubCategory)throws SQLException, Exception{
 		try{
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
-
+			ResultSet rs = null;
 			Statement query = con.createStatement();
-			//return a result set of auctions that have not ended in increasing order
-			ResultSet rs = query.executeQuery("SELECT * FROM auction a join users u on u.UserID = a.UserID WHERE CURRENT_TIMESTAMP < a.AuctionEnd order by a.AuctionEnd ASC");
+			String order = "";
+			
+			if(filter == 1){
+				order = "order by a.AuctionEnd ASC";
+				System.out.println("1");
+			}
+			else if(filter == 2){
+				order = "order by a.AuctionEnd DESC";
+				System.out.println("2");
+			}
+			// returns auctions not expired in ASCENDING ORDER
+			else if(filter == 3){
+				order = "order by a.AuctionPrice ASC";
+			}
+			else if(filter == 4){
+				order = "order by a.AuctionPrice DESC";
+			}
+			// returns auctions not expired in ASCENDING ORDER
+			if(SubCategory.equals("everything")){
+				rs = query.executeQuery("SELECT * FROM auction a join users u on u.UserID = a.UserID WHERE CURRENT_TIMESTAMP < a.AuctionEnd " + order);
+			}
+			else{
+				rs = query.executeQuery("SELECT * FROM auction a join users u on u.UserID = a.UserID WHERE CURRENT_TIMESTAMP < a.AuctionEnd AND a.Subcategory = '" + SubCategory + "' " + order);
+			}
             return rs;
 		}
 		catch(SQLException se) {

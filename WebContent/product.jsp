@@ -87,10 +87,10 @@
 						<hr>
 						<form action="createBidHandler.jsp" method = "POST">
 							<input class = "textField sweep" type="number" name = "bidAmount" placeholder= "Bid Amount +<%=rs.getString("BidIncrement")%>" required>
-							<input id = "desc_bidButton" class = "bid sweep hvr-bob actionButton" type="submit" value = "Bid Now" style="margin-top: 10px;">
+							<input id = "desc_bidButton" class = "bid sweep hvr-bob actionButton anima" type="submit" value = "Bid Now" style="margin-top: 10px;">
 							<br>
 							<h4>AutoBid (Optional)</h4>
-							<div class = "bid sweep hvr-bob actionButton" onclick = "dropDown()">Open AutoBid</div>
+							<div class = "bid sweep hvr-bob actionButton anima" onclick = "dropDown()">Open AutoBid</div>
 							<div id = "autobidform" style = "display:none">
 								<p>Auto Bid Increment has to surpass or equal <%=rs.getString("BidIncrement")%> for this Auction.</p>
 								<h6><strong>This amount will possibly be bid if a bid war exists</strong></h6>

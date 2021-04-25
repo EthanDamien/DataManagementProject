@@ -336,18 +336,35 @@ body{
     padding: 5px 20px;
     text-decoration: none;
   }
-  .actionButton:hover {
+
+  .actionButton2 {
+    background-color: #000000;
+    align-self: center;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    border: none;
+    font-size: 12px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 5px 20px;
+    text-decoration: none;
+  }
+
+  .anima:hover {
     background: linear-gradient(270deg, #b500d2, #ffa309);
     background-size: 400% 400%;
+    color: white;
   
     -webkit-animation: Juice 13s ease infinite;
     -moz-animation: Juice 13s ease infinite;
     animation: Juice 13s ease infinite;
   }
-  .actionButton:active {
+  .anima:active {
     position: relative;
     top: 1px;
   }
+
 /* utilizing strong for simple red tag */
 strong {
     color: red;
@@ -439,3 +456,37 @@ strong {
     height: 40vh;
     overflow-y: scroll;
 }
+
+@-webkit-keyframes Juice {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @-moz-keyframes Juice {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  @keyframes Juice {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
