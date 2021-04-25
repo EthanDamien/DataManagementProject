@@ -29,7 +29,7 @@ public class Auction
 	  	}
 	}
 	
-	public static int createAuction(String auctionID, int userID, String endDate, double price, double reservePrice, double bidIncrement, String itemName, String productDescription, String category) throws Exception {
+	public static int createAuction(String auctionID, int userID, String endDate, double price, double reservePrice, double bidIncrement, String itemName, String productDescription, String category, String subCategory) throws Exception {
 		
 		try 
 	    {
@@ -37,8 +37,8 @@ public class Auction
 			Connection con = db.getConnection();	
 			Statement st = con.createStatement();
 
-	        String query = String.format("INSERT into auction(AuctionID, UserID, AuctionEnd, AuctionPrice, ReservePrice, BidIncrement, ItemName, ProductDesc, Category) "
-	        		+ "values(%s, '%d', '%s', '%f', '%f', '%f', '%s', '%s', '%s')", auctionID, userID, endDate, price, reservePrice, bidIncrement, itemName, productDescription, category);
+	        String query = String.format("INSERT into auction(AuctionID, UserID, AuctionEnd, AuctionPrice, ReservePrice, BidIncrement, ItemName, ProductDesc, Category, Subcategory, WinnerID) "
+	        		+ "values(%s, '%d', '%s', '%f', '%f', '%f', '%s', '%s', '%s', '%s', -1)", auctionID, userID, endDate, price, reservePrice, bidIncrement, itemName, productDescription, category, subCategory);
  	 		System.out.println(query);
 
  	 		st.executeUpdate(query);
@@ -133,6 +133,62 @@ public class Auction
 		}
 	}
 
+	public static ResultSet orderedNotExpired(int a)throws SQLException, Exception{
+		try{
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+
+			Statement query = con.createStatement();
+			//return a result set of auctions that have not ended in increasing order
+			ResultSet rs = query.executeQuery("SELECT * FROM auction a join users u on u.UserID = a.UserID WHERE CURRENT_TIMESTAMP < a.AuctionEnd order by a.AuctionEnd ASC");
+            return rs;
+		}
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+
+	public static ResultSet auctionsOwnedBy(int UserID)throws SQLException, Exception{
+		try{
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+
+			Statement query = con.createStatement();
+			//return a result set of auctions that have not ended in increasing order
+			ResultSet rs = query.executeQuery("SELECT * FROM auction a join users u on u.UserID = a.UserID WHERE CURRENT_TIMESTAMP < a.AuctionEnd AND a.UserID = " + UserID + " order by a.AuctionEnd ASC");
+            return rs;
+		}
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
+
+
+	public static int numOfBids(int auctionID) throws SQLException, Exception{
+		try{
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+
+			Statement query = con.createStatement();
+			//return a result set of auctions that have not ended in increasing order
+			ResultSet rs = query.executeQuery("Select count(*) as count from bid WHERE bid.AuctionID =" + auctionID);
+			rs.next();
+			int num = rs.getInt("count");
+            return num;
+		}
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch(Exception ex) {
+			throw ex;
+		}
+	}
 
 	public static void automaticUpdate(int auctionID, int currUserID)throws SQLException, Exception{
 
@@ -171,6 +227,9 @@ public class Auction
 
 				int user = rs2.getInt("UserID");
 
+				if(user == currUserID){
+					return;
+				}
 				//if the current limit of the highest autobid is less than currentBid
 				//get rid of it
 				if(limit <= currentBid){
@@ -358,15 +417,45 @@ public class Auction
 		}
 	}
 
-	public static ResultSet orderedNotExpired()throws SQLException, Exception{
+
+	public static void checkWinners() throws SQLException, Exception{
 		try{
+			System.out.println("Checking for the Chicken Dinners");
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();
 
-			Statement query = con.createStatement();
-			//return a result set of auctions that have not ended in increasing order
-			ResultSet rs = query.executeQuery("SELECT * FROM auction WHERE CURRENT_TIMESTAMP < AuctionEnd order by AuctionEnd ASC");
-            return rs;
+			Statement st = con.createStatement();
+			ResultSet endTable = st.executeQuery("SELECT a.AuctionID, b.UserID, b.BidAmount, a.ReservePrice FROM auction a JOIN bid b ON b.BidAmount = a.AuctionPrice WHERE a.WinnerID = -1 AND a.AuctionEnd < CURRENT_TIME");
+			
+			while(endTable.next()){
+				System.out.println("Winner Found");
+				int bid = endTable.getInt("BidAmount");
+				int reserve = endTable.getInt("ReservePrice");
+				int auction = endTable.getInt("AuctionID");
+				System.out.println("bid: "+ bid + ", reserve: " + reserve + ", AuctionID: "+ auction);
+				String updateNotif = "UPDATE participating SET NotificationStatus = 3 WHERE UserID = ? and AuctionID = ?";
+				String updateAuctionWinner = "UPDATE auction SET WinnerID = ? WHERE AuctionID = ?";
+				PreparedStatement un = con.prepareStatement(updateNotif);
+				PreparedStatement ua = con.prepareStatement(updateAuctionWinner);
+				
+				
+				if(reserve <= bid){
+					int user = endTable.getInt("UserID");
+					un.setInt(1, user);
+					un.setInt(2, auction);
+					ua.setInt(1, user);
+					ua.setInt(2, auction);
+					un.executeUpdate();
+					ua.executeUpdate();
+				}
+				else{
+					ua.setInt(1, -2);
+					ua.setInt(2, auction);
+					ua.executeUpdate();
+				}
+			}
+
+
 		}
 		catch(SQLException se) {
 			throw se;
@@ -375,5 +464,6 @@ public class Auction
 			throw ex;
 		}
 	}
+	
 
 }

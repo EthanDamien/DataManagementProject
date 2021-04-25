@@ -14,14 +14,26 @@
 		int userID = Users.getUserID((String)session.getAttribute("Username")); 
  		String endDate  = request.getParameter("endDate") + " 23:59:59"; 
  		System.out.println(endDate);
- 		int price = Integer.parseInt(request.getParameter("price")); 
-		int reservePrice = Integer.parseInt(request.getParameter("reservePrice")); 
-		int bidIncrement = Integer.parseInt(request.getParameter("bidIncrement")); 
+ 		double price = Double.parseDouble(request.getParameter("price")); 
+		double reservePrice = Double.parseDouble(request.getParameter("reservePrice")); 
+		double bidIncrement = Double.parseDouble(request.getParameter("bidIncrement")); 
    		String itemName = request.getParameter("itemName"); 
    		String productDescription = request.getParameter("productDescription"); 
- 		String category = request.getParameter("category"); 
+ 		String subCategory = request.getParameter("category"); 
+		String category = "";
+
+ 		if(subCategory.equals("pants") || subCategory.equals("hoodies") || subCategory.equals("shorts") || subCategory.equals("tees"))
+ 			category = "clothes";
+ 		else if(subCategory.equals("running") || subCategory.equals("hiking") || subCategory.equals("workout") || subCategory.equals("casual"))
+ 			category = "shoes";
+ 		else if(subCategory.equals("necklace") || subCategory.equals("bracelet") || subCategory.equals("ring") || subCategory.equals("watch"))
+ 			category = "jewelery";
+ 		else if(subCategory.equals("phone") || subCategory.equals("tablet") || subCategory.equals("computer") || subCategory.equals("laptop"))
+ 			category = "electronics";
+
  		try {	
- 			int auctionID = Auction.createAuction("AuctionID", userID, endDate, price, reservePrice, bidIncrement, itemName, productDescription, category);
+ 			int auctionID = Auction.createAuction("AuctionID", userID, endDate, price, reservePrice, bidIncrement, itemName, productDescription, category, subCategory);
+
         	response.sendRedirect("product.jsp?auctionID=" + Integer.toString(auctionID));
  	    	return;
  	    }

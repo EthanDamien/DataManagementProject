@@ -54,11 +54,11 @@
 				<div class = "desc">
 				
 					<div class = "desc_row">
-						<h3 id = "desc_itemPrice">Current Price: <%=rs.getString("AuctionPrice")%>USD</h3>
+						<h3 id = "desc_itemPrice">Current Price is <%=rs.getString("AuctionPrice")%>USD</h3>
 					</div>
 					
 					<div class = "desc_row">
-					<h3>Bid History</h3>
+					<h3>Bid History (<%=Auction.numOfBids(Integer.parseInt(request.getParameter("auctionID")))%> Bids)</h3>
 					<hr>
 						<div id = "history_scrollable">
 							<% bidRs = Bid.bidHistory(Integer.parseInt(request.getParameter("auctionID")));
@@ -86,7 +86,7 @@
 						<h3>Create Bid</h3>
 						<hr>
 						<form action="createBidHandler.jsp" method = "POST">
-							<input class = "textField sweep" type="number" name = "bidAmount" placeholder= "Bid Amount" required>
+							<input class = "textField sweep" type="number" name = "bidAmount" placeholder= "Bid Amount +<%=rs.getString("BidIncrement")%>" required>
 							<input id = "desc_bidButton" class = "bid sweep hvr-bob actionButton" type="submit" value = "Bid Now" style="margin-top: 10px;">
 							<br>
 							<h4>AutoBid (Optional)</h4>
@@ -103,9 +103,16 @@
 								<input name = "userID" type = "hidden" value="<%=Users.getUserID((String)session.getAttribute("Username")) %>">
 							</div>
 						</form>
-						<%} else{%>
-						<h3><strong>Auction has ended</strong></h3>
-						<%}%>
+						<%} else{
+							int winner = rs.getInt("winnerid");
+							if(winner>= 0) {%>
+						<h3 style = "color: green">Winner of this auction is <%=Users.getUsername(winner)%></h3>
+						<%}
+						else{
+							%>
+							<h3><strong>Auction has ended with no winner</strong></h3>
+							<%
+						}}%>
 					
 					<%}else{ %>
 					<a class="link" href="login.jsp">Login to Bid!</a>
@@ -129,12 +136,14 @@
 						%>
 						<button id = "desc_bidButton" class = "hvr-bob actionButton">Watch</button>
 					</div>
-					
+					<hr>
+					<h5>Created by <a href = "profile.jsp?userID=<%=rs.getInt("userID") %>"> <%=Users.getUsername(rs.getInt("userID"))%></a></h5>
 					<hr>
 					<h5>Description</h5>
 					<h6><%=rs.getString("ProductDesc") %></h6>
 					<hr>
-					<h5><%=rs.getString("Category") %></h5>
+					<h6>Category</h5>
+					<p><%=rs.getString("Category") %> / <%=rs.getString("Subcategory") %></p>
 			</div>
 		</div>
 	</div>

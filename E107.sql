@@ -26,7 +26,8 @@ create table auction(
 	ItemName varchar(30) not null,
 	ProductDesc varchar(500) not null,
 	Category varchar(100) not null,
-	/* SubCategory varchar(100) not null, */
+	Subcategory varchar(100) not null,
+	WinnerID int not null,
 	AuctionCreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
 	foreign key (UserID) REFERENCES users(UserID)
 );
@@ -48,7 +49,7 @@ create table questions(
 	Description varchar(500) not null,
 	QuestionCreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
 	Answered int not null,
-	Response varchar(500) not null, 
+	Response varchar(500) not null DEFAULT '', 
 	foreign key (UserID) REFERENCES users(UserID)
 );
 
@@ -111,7 +112,7 @@ insert into users values
 
 
 insert into auction values
-	(1, 4, '2021-05-15 5:50:00', 50, 100, 5, "Chicken", "Pee pee poo poo", "food/meat", '2021-05-13' );
+	(1, 4, '2021-05-15 5:50:00', 50, 100, 5, "Chicken", "Pee pee poo poo", "food/meat", -1, '2021-05-13' );
 
 
 insert into participating values (4,1,0,0,1) on duplicate key update UserID = 4, AuctionID = 1;
@@ -129,5 +130,5 @@ insert into participating values (4,1,0,0,1) on duplicate key update UserID = 4,
 -- Category varchar(100) not null,
 -- foreign key UserID REFERENCES users(User),
 
---Order and get auctions that are not expired
---SELECT * FROM auction WHERE CURRENT_TIMESTAMP < AuctionEnd order by AuctionEnd ASC;
+-- Order and get auctions that are not expired
+-- SELECT * FROM auction WHERE CURRENT_TIMESTAMP < AuctionEnd order by AuctionEnd ASC;

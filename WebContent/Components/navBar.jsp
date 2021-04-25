@@ -32,7 +32,6 @@
 			</div>
 		</div>
 		<div class="col-12" id="navBar">
-			<a class="goButton" href="market.jsp">Shop</a>
 			<%  if(session.getAttribute("Username") != null) { 
 				int accountType = (Integer) session.getAttribute("Type");
 				if(accountType == 1){
@@ -43,8 +42,11 @@
 			%>
 						
 			<a class="goButton" href="questions.jsp">Questions</a>
-			<a class="goButton" href="createAuction.jsp">Create Auction</a>
-			<a class="goButton" href="userProfile.jsp">Profile</a>
+			<% if(accountType == 3){%>
+			<a class="goButton" href="createAuction.jsp">Add Listing +</a>
+			<a class="goButton" href="yourProfile.jsp">My Profile</a>
+			<%} %>
+			
 
 			<% } else { %>
 			<a class="goButton" href="questions.jsp">Questions</a>

@@ -28,6 +28,32 @@ public class Users
 			throw ex;
 	  	}
     }
+
+	public static String getUsername(int userID) throws Exception
+    {
+		try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+		    ResultSet rs = null;
+
+	        String query = "SELECT * from users WHERE userid = " + userID;
+		    Statement st = con.createStatement();
+
+			rs = st.executeQuery(query);
+			rs.next();
+			
+			return rs.getString("username");
+
+	    }
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			throw ex;
+	  	}
+    }
     
     public static int getUserID(String username)
     {
@@ -130,5 +156,20 @@ public class Users
     		throw ex;
     	}
 	}
+
+	public static ResultSet getListings(int userID)throws Exception{
+		try {
+    		ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();
+			Statement st = con.createStatement();
+			String query = "SELECT * FROM users u JOIN auction a ON u.UserID = a.UserID ORDER BY a.AuctionEnd DESC";
+			ResultSet rs = st.executeQuery(query);
+			return rs;
+    	}
+    	catch(Exception ex) {
+    		throw ex;
+    	}
+	}
+
     
 }

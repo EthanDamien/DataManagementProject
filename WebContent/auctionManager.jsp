@@ -11,15 +11,41 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<title>Customer Representative Home</title>
+<title>Auction Manager</title>
 </head>
 <body>
 	<%@ include file="./Components/navBar.jsp" %>
-	<h2>Customer Representative Home</h2>
-	<a href="userManager.jsp">Manage User Accounts</a><br>
-	<a href="auctionManager.jsp">Manage Auctions</a><br>
-	<a href="bidManager.jsp">Manage Bids</a><br>
-	<a href="questionsCustomerRep.jsp">Respond to Questions</a><br>
-	
+
+	<h1> Auction Manager</h1>
+	<table>
+	    	<tr>
+			   <th>Auction ID</th>
+			   <th>Seller ID</th>		
+			   <th>Item Name</th>
+			   <th>Price</th>
+			   <th>Product Description</th>
+			   <th>Category</th>
+			   
+			</tr>
+	<%
+		ResultSet rs = Auction.getAllAuctions();
+		while(rs.next()) {
+	%>
+	<tr>
+		<td><%=rs.getInt("AuctionID")%></td>
+		<td><%=rs.getInt("UserID")%></td>
+		<td><%=rs.getString("ItemName")%></td>
+		<td>$<%=rs.getDouble("AuctionPrice")%></td>
+		<td><%=rs.getString("ProductDesc")%></td>
+		<td><%=rs.getString("Category")%></td>
+				
+		<td> 
+			<form action="deleteAuctionHandler.jsp" method = "POST">		
+				<input name = "deleteAuction" type = "hidden" value="<%= rs.getInt("AuctionID")%>">
+				<input class = "sweep" type="submit" value = "Delete Auction">
+			</form>
+		</td>
+	</tr>
+	<%} %>	
 </body>
 </html>

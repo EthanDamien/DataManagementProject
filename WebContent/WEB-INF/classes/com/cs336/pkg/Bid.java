@@ -95,7 +95,7 @@ public class Bid {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 			
-	    	String query = "Select * FROM bid b JOIN users u ON u.UserID = b.UserID where b.AuctionID = ? ORDER BY b.BidAmount Desc";
+	    	String query = "Select * FROM bid b JOIN users u ON u.UserID = b.UserID where b.AuctionID = ? ORDER BY b.BidID Desc";
 	    	PreparedStatement ps = con.prepareStatement(query);
 	    	
 	    	ps.setInt(1, auctionID);
@@ -113,6 +113,31 @@ public class Bid {
 	  	}
 	}
 	
+	public static ResultSet userBidHistory(int userID) throws SQLException, Exception
+	{		
+		try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+			
+	    	String query = "Select * from bid b JOIN users u on u.userid = b.userid JOIN auction a ON b.AuctionID = a.AuctionID WHERE u.userid = ? ORDER BY b.BidID DESC";
+	    	PreparedStatement ps = con.prepareStatement(query);
+	    	
+	    	ps.setInt(1, userID);
+	    	ResultSet rs = ps.executeQuery();
+			
+	    	
+	    	return rs;
+	    }
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			throw ex;
+	  	}
+	}
+
 	public static void deleteBid(int auctionID, int bidID)throws Exception
 	{
 		try 

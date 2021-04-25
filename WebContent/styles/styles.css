@@ -435,3 +435,7 @@ strong {
       height: 100px;
       overflow-y: scroll;
   }
+  #history_scrollable2{
+    height: 80vh;
+    overflow-y: scroll;
+}

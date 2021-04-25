@@ -15,7 +15,7 @@
          
 
         <% 
-
+            Auction.checkWinners();
             String username = (String) session.getAttribute("Username");
             %>
                 <p> Username: <%=username%> <p>
@@ -92,4 +92,4 @@
       // When the user clicks anywhere outside of the modal, close it
       </script>
 </body>
-</html>
+</html>i

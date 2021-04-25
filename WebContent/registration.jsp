@@ -20,16 +20,8 @@
     <title>BuyMe - Register</title>
 </head>
 <body>
-    <div class="headerContainer">
-    	<div class="col-12" id="header">
-            <a href="index.jsp">
-            	<img src="styles/E107logo.png" style="height: 98px; float: left"/>
-            </a>
-        </div>
-    </div>
-    
-  	<div class="navBar">
-    </div>
+	<%@ include file="./Components/navBar.jsp" %>
+
    <div id = "registrationForm">
         <h1 class = "headerGreetings">Nice to Meet You</h1>
         <form class = "formContainer" action="registrationHandler.jsp" method = "POST">
@@ -49,6 +41,12 @@
 						alert('Email already exists');
 					</script>
 				<%
+				}
+				else if(temp.equals("UsernameError")){%>
+				<script>
+					alert('Username already exists');
+				</script>
+			<%
 				}session.removeAttribute("error");	 
 			}catch (Exception ex) {
 			}

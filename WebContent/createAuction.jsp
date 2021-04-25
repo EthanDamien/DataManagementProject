@@ -22,14 +22,44 @@
 	<%} else{ %>
 	 
 	<div id = "createAuction">
-        <h1 class = "headerGreetings">Nice to Meet You</h1>
         <form class = "formContainer" action="createAuctionHandler.jsp" method = "POST">
+			<h1 class = "headerGreetings">Add Listing</h1>
         	<input class = "textField sweep" type="text" name = "itemName" placeholder= "Item Name" required>
             <input class = "textField sweep" type="text" name = "price" placeholder= "Initial Price" required>
             <input class = "textField sweep" type="text" name = "reservePrice" placeholder= "Reserve Sell Price" required>
             <input class = "textField sweep" type="text" name = "bidIncrement" placeholder= "Bid Increment" required> 
             <input class = "textField sweep" type="text" name = "productDescription" placeholder= "Product Description" required>
-            <input class = "textField sweep" type="text" name = "category" placeholder= "Category Name" required>
+            <select name = "category">
+            	<optgroup label = "Clothes">
+            		<option value="pants">Pants</option>
+            	    <option value="hoodies">Hoodies</option>
+            	    <option value="shorts">Shorts</option>
+            	    <option value="tees">Tees</option>
+            	</optgroup>
+            	 
+            	 <optgroup label = "Shoes">
+            		<option value="running">Running</option>
+            	    <option value="hiking">Hiking</option>
+            	    <option value="workout">Workout</option>
+            	    <option value="casual">Casual</option>
+            	</optgroup>
+            	
+            	
+            	<optgroup label = "Jewelery">
+            		<option value="necklace">Necklace</option>
+            	    <option value="bracelet">Bracelet</option>
+            	    <option value="ring">Ring</option>
+            	    <option value="watch">Watch</option>
+            	</optgroup>
+            	
+            	<optgroup label = "Electronics">
+            		<option value="phone">Phone</option>
+            	    <option value="tablet">Tablet</option>
+            	    <option value="computer">Computer</option>
+            	    <option value="laptop">Laptop</option>
+            	</optgroup>
+            </select>
+            
             <input class = "textField sweep" type="text" name = "endDate" placeholder= "End Date YYYY-MM-DD" required>
             <input class = "loginButton sweep" type="submit" value = "Submit" style="margin-top: 10px;">	
         </form>

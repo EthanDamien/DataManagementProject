@@ -31,66 +31,36 @@
 	%>
 	<div id="products">
 		<%
-			ResultSet validProducts = Auction.orderedNotExpired();
+			ResultSet validProducts = Auction.orderedNotExpired(1);
 		%>
 
 		<div class="container" style = "padding-top: 20px;">
 			<div class="row">
 			<!-- card start -->
-			  <a class="col-4 itemCard" href="product.html">
-				  <img src="assets/img/BurberryJacket.jpg"/>
-				<h4 class = "itemName">Burberry Work Jacket</h4>
-				<div>
-				  <h4 style="float:left;">99.99USD</h4>
-				  <h4 style="float:right">3 Bids</h4>
-				</div>
-				<div>
-				  <h6 style="float:left; color: red">15mins left</h6>
-				  <h6 style="float:right">Kevin Jones</h6>
-				</div>
-				<h6>Buy Now at 479.99USD</h6>
-			  </a>
-			  <!-- card end -->
-			  <div class="col-4 itemCard">
-				<img src="assets/img/DiorJacket.webp"/>
-				<h4 class = "itemName">Dior Puffer</h4>
-				<div>
-				  <h4 style="float:left;">99.99USD</h4>
-				  <h4 style="float:right">3 Bids</h4>
-				</div>
-				<div>
-				  <h6 style="float:left; color: red">15mins left</h6>
-				  <h6 style="float:right">Kevin Jones</h6>
-				</div>
-				<h6>Buy Now at 479.99USD</h6>
-			  </div>
-			  <div class="col-4 itemCard">
-				<img src="assets/img/Helmut Jacket.jpg"/>
-				<h4 class = "itemName">Helmut Lang Leather Jacket</h4>
-				<div>
-				  <h4 style="float:left;">99.99USD</h4>
-				  <h4 style="float:right">3 Bids</h4>
-				</div>
-				<div>
-				  <h6 style="float:left; color: red">15mins left</h6>
-				  <h6 style="float:right">Kevin Jones</h6>
-				</div>
-				<h6>Buy Now at 479.99USD</h6>
-			  </div>
-			  <div class="col-4 itemCard">
-				<img src="assets/img/WeekndJacket.png"/>
-				<h4 class = "itemName">The Weeknd Daniel Arsham Jacket</h4>
-				<div>
-				  <h4 style="float:left;">99.99USD</h4>
-				  <h4 style="float:right">3 Bids</h4>
-				</div>
-				<div>
-				  <h6 style="float:left; color: red">15mins left</h6>
-				  <h6 style="float:right">Kevin Jones</h6>
-				</div>
-				<h6>Buy Now at 479.99USD</h6>
-			  </div>
-		  </div>
+				<% while(validProducts.next()){
+					int AuctionID = validProducts.getInt("auctionID");
+					
+					int winner = validProducts.getInt("WinnerID");
+					
+				%>
+				<a class="col-4 itemCard" href="product.jsp?auctionID=<%=AuctionID%>">
+					<img src="assets/img/BurberryJacket.jpg"/>
+					<h4 class = "itemName"><%=validProducts.getString("itemname")%></h4>
+					<div>
+					<h4 style="float:left;"><%=validProducts.getDouble("AuctionPrice")%>USD</h4>
+					<h4 style="float:right"><%=Auction.numOfBids(AuctionID)%> Bids</h4>
+					</div>
+					<div>
+					<h6 style="float:left">Ends At</h6>
+					<h6 style="float:right; color: red"><%=validProducts.getString("AuctionEnd")%></h6>
+					</div>
+					<div>
+						<h6 style = "float: right">from <%=validProducts.getString("username")%></h6>
+					</div>
+				</a>
+				<%}%>
+			  
+		  	</div>
 		</div>
 	  </div>
 		<div id = "footer">
@@ -101,3 +71,17 @@
 	
 </body>
 </html>
+
+<%-- <h6 style = "float: right">from <%=validProducts.getString("username")%></h6>
+						<%
+							if(winner == -2){
+
+							
+						%>
+						<h6 style = "float: right"> Winner: <%=Users.getUsername(validProducts.getInt("WinnerID"))%></h6>
+						<%
+							else{
+
+						%>
+						<h6 style = "float: right"> No one won</h6>
+						<% }%> --%>

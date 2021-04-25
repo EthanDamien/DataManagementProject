@@ -22,11 +22,11 @@
 	<br>
 	
 	<form action="salesReport.jsp" method="POST">
-       <select> 
-	       <option value="totalE">Total Earnings</option>
-	       <option value="ePerItem">Earnings Per Item</option>
-	       <option value="eItemType">Earnings Per Item Type</option>
-	       <option value="ePerUser">Earnings Per End-User</option>
+       <select name = "salesReportType"> 
+	       <option value="totalEarnings">Total Earnings</option>
+	       <option value="earningsPerItem">Earnings Per Item</option>
+	       <option value="earningsPerItemType">Earnings Per Item Type</option>
+	       <option value="earningsPerUser">Earnings Per End-User</option>
 	       <option value="bestItem">Best Selling Items</option>
 	       <option value="bestBuyer">Best Buyers</option>
        </select>

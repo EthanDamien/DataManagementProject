@@ -14,8 +14,11 @@
 <body>
     <%
 	ResultSet emailResult = null;
+	ResultSet usernameResult = null;
+
 	PreparedStatement emailPS = null;
-	
+	PreparedStatement usernamePS = null;
+
     try 
     {
 		ApplicationDB db = new ApplicationDB();	
@@ -24,11 +27,6 @@
         String email = request.getParameter("userEmail");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
-		Statement stmt = con.createStatement();
-        String counter = "SELECT COUNT(*) FROM users";
-		ResultSet result = stmt.executeQuery(counter);
-		int count = 0;
 		
 		String queryEmail = "SELECT * from users WHERE Email = ?";
 		emailPS = con.prepareStatement(queryEmail);
@@ -44,20 +42,26 @@
             return;
 		}
 		
-		//Find the number of tuples to give a User ID
-		if(result.next())
+		String queryUsername =  "SELECT * from users WHERE username = ?";
+		usernamePS = con.prepareStatement(queryUsername);
+		usernamePS.setString(1, username);
+		usernameResult = usernamePS.executeQuery();
+		
+		if(usernameResult.next())
 		{
-			count = result.getInt("COUNT(*)") + 1;
+			session.setAttribute("error", "UsernameError");
+        	
+        	response.sendRedirect("registration.jsp");
+            return;
 		}
-   
+		
 		//Insert a tuple into the Users table
-        String query = "INSERT into users(UserID, Email, Username, Password, UserType) values(?, ?, ?, ?, ?)";
+        String query = "INSERT into users(Email, Username, Password, UserType) values(?, ?, ?, ?)";
         PreparedStatement ps = con.prepareStatement(query);
-		ps.setInt(1, count);
-        ps.setString(2, email);
-        ps.setString(3, username);
-        ps.setString(4, password);
-		ps.setInt(5, 3);
+        ps.setString(1, email);
+        ps.setString(2, username);
+        ps.setString(3, password);
+		ps.setInt(4, 3);
 		
         ps.executeUpdate();
     	response.sendRedirect("login.jsp");
