@@ -31,7 +31,7 @@
 	    	
 	    	rs = st.executeQuery("SELECT * FROM users WHERE username LIKE '%"+name+"%' AND UserType = 3");
 	%>
-	    	<table>
+	    	<table class="table-sm table-dark">
 	    	<tr>
 			   <th>Username</th>
 			   <th>UserID</th>
@@ -69,7 +69,41 @@
 	catch(Exception e){
 	}
 	%>
-
+	<br>
+	<h3> All Users</h3>
+	 <table class="table-sm table-dark">
+	    	<tr>
+			  <th>Username</th>
+			   <th>UserID</th>
+			   <th>Email</th>
+			   <th>Edit</th>
+			   <th>Delete</th> 
+			</tr>
+			
+			<%  ResultSet rsAll = Users.getAllUsers(); 
+				while(rsAll.next()){
+			%>
+			<tr> 
+		
+				<td><%=rsAll.getString("Username")%></td>
+				<td><%=rsAll.getString("UserID")%></td>
+				<td><%=rsAll.getString("Email")%></td>
+				<td> 
+					<form action="editUser.jsp" method = "POST">	
+						<input name = "usernameEdit" type = "hidden" value="<%=rsAll.getString("Username")%>">
+						<input class = "sweep" type="submit" value = "Edit User">
+					</form>
+				</td>
+				<td> 
+					<form action="deleteUserHandler.jsp" method = "POST">		
+						<input name = "usernameDelete" type = "hidden" value="<%=rsAll.getString("Username")%>">
+						<input class = "bid sweep" type="submit" value = "Delete User">
+					</form>
+				</td>	
+			</tr>
+			<%} %>
+			
+	 </table>
 	
 	
 </body>

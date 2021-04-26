@@ -86,7 +86,33 @@ public class Users
 	    {
 	  	}
     }
-    
+
+    public static ResultSet getAllUsers() throws Exception
+    {
+    	try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+		    ResultSet rs = null;
+
+	        String query = "SELECT * from users WHERE UserType = 3";
+		    Statement st = con.createStatement();
+
+			rs = st.executeQuery(query);
+			return rs;
+
+	    }
+		catch(SQLException se) {
+			System.out.println(se);
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			System.out.println(ex);
+			throw ex;
+	  	}
+    }
+
     public static ResultSet getAllCustomerReps() throws Exception
     {
     	try 
@@ -171,5 +197,61 @@ public class Users
     	}
 	}
 
-    
+    public static java.sql.Timestamp getCurrentTimeStamp() {
+
+		java.util.Date today = new java.util.Date();
+		return new java.sql.Timestamp(today.getTime());
+	
+	}
+
+	public static ResultSet getInterests(int userID) throws SQLException, Exception
+	{		
+		try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+			
+	    	String query = "Select Distinct interestName from interested where userid = ?";
+	    	PreparedStatement ps = con.prepareStatement(query);
+	    	
+	    	ps.setInt(1, userID);
+	    	ResultSet rs = ps.executeQuery();
+			
+	    	
+	    	return rs;
+	    }
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			throw ex;
+	  	}
+	}
+
+	
+	public static void deleteInterest(String interest, int userID) throws SQLException, Exception
+	{		
+		try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+			
+	    	String query = "DELETE FROM interested where interestName = ? and UserID = ?";
+	    	PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1, interest);
+	    	ps.setInt(2, userID);
+			ps.executeUpdate();
+			
+	    	
+	    	return;
+	    }
+		catch(SQLException se) {
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			throw ex;
+	  	}
+	}
 }

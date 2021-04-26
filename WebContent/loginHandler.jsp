@@ -42,8 +42,12 @@
                 session.setAttribute("Type", result.getInt("UserType"));
                 session.setAttribute("error", "Valid");
 
-                response.sendRedirect("index.jsp");
-                return;
+                if(result.getInt("UserType") == 1)
+                    response.sendRedirect("adminHome.jsp");
+                else if(result.getInt("UserType") == 2)
+                    response.sendRedirect("customerRepHome.jsp");
+                else
+                	response.sendRedirect("index.jsp");
             }
             // Return to Login Page but Display Wrong Credentials
             else

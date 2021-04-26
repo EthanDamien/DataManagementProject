@@ -30,7 +30,7 @@
     ResultSet rs = Auction.getAuction(auctionID);
 
     if(bidLim < price && bidLim != 0.0){
-        out.println("What are you stupid?");
+        out.println("Autobid cannot be less than Your bid");
         out.println("<a href='product.jsp?auctionID="+auctionID+"'>Go back to Product</a>");
         return;
     }
@@ -39,7 +39,7 @@
     System.out.println(currentIncrement);
 
     if(currentIncrement > increm && increm != 0.0){
-        out.println("Can you read?");
+        out.println("Increment cannot be less than stated increment");
         out.println("<a href='product.jsp?auctionID="+auctionID+"'>Go back to Product</a>");
         return;
     }

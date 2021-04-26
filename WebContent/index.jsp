@@ -13,7 +13,6 @@
 	<link rel = "stylesheet" type = "text/css" href="styles/styles.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>BuyMe - Home</title>
 </head>
 <body>
@@ -186,7 +185,7 @@
 		};
 
 		document.getElementById('order').onchange = function() {
-			localStorage.setItem('orderitem', document.getElementById('order').value);
+			localStorage.setItem('orderItem', document.getElementById('order').value);
 		};
 
 		if (localStorage.getItem('orderItem')) {

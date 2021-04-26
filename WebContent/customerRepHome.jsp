@@ -16,7 +16,7 @@
 <body>
 	<%@ include file="./Components/navBar.jsp" %>
 	<h2>Customer Representative Home</h2>
-	<a href="userManager.jsp">Manage User Accounts</a><br>
+	<a href="UserManager.jsp">Manage User Accounts</a><br>
 	<a href="auctionManager.jsp">Manage Auctions</a><br>
 	<a href="bidManager.jsp">Manage Bids</a><br>
 	<a href="questionsCustomerRep.jsp">Respond to Questions</a><br>

@@ -29,11 +29,12 @@
 	    	
 	    	rs = st.executeQuery("SELECT * FROM bid WHERE AuctionID LIKE'%"+auctionID+"%'"); 	
 	 %>
-	 <table>
+	 <table class="table-sm table-dark">
 	    <tr>
+	    	<th>User ID</th>
+	    	<th>User Name</th>
 	    	<th>Bid ID</th>
 			<th>Auction ID</th>
-			<th>User ID</th>
 			<th>Bid Amount</th>
 			<th>Bid Created</th>
 		</tr>
@@ -41,9 +42,10 @@
 	    while(rs.next()) {
 	%>
 	<tr> 
+		<td><%=rs.getInt("UserID")%></td>
+		<td><%= Users.getUsername(rs.getInt("UserID"))%></td>
 		<td><%=rs.getInt("BidID")%></td>
 		<td><%=rs.getInt("AuctionID")%></td>
-		<td><%=rs.getInt("UserID")%></td>
 		<td>$<%=rs.getDouble("BidAmount")%></td>
 		<td><%=rs.getString("BidCreatedAt")%></td>
 		<td> 
@@ -62,5 +64,39 @@
 	catch(Exception e){
 	}
 	%>
+	
+	<h3> All Bids</h3>
+	 <table class="table-sm table-dark">
+	    	<tr>
+			  	<th>User ID</th>
+		    	<th>User Name</th>
+		    	<th>Bid ID</th>
+				<th>Auction ID</th>
+				<th>Bid Amount</th>
+				<th>Bid Created</th>
+			</tr>
+			
+			<%  ResultSet rsAll = Bid.getAllBids(); 
+				while(rsAll.next()){
+			%>
+			<tr> 
+				<td><%=rsAll.getInt("UserID")%></td>
+				<td><%= Users.getUsername(rsAll.getInt("UserID"))%></td>
+				<td><%=rsAll.getInt("BidID")%></td>
+				<td><%=rsAll.getInt("AuctionID")%></td>
+				<td>$<%=rsAll.getDouble("BidAmount")%></td>
+				<td><%=rsAll.getString("BidCreatedAt")%></td>
+				<td> 
+					<form action="deleteBidHandler.jsp" method = "POST">		
+						<input name = "auctionID" type = "hidden" value="<%=rsAll.getInt("AuctionID")%>">
+						<input name = "bidID" type = "hidden" value="<%=rsAll.getInt("BidID")%>">
+						
+						<input class = "sweep" type="submit" value = "Delete Bid">
+					</form>
+				</td>	
+			</tr>
+			<%} %>
+			
+	 </table>
 </body>
 </html>

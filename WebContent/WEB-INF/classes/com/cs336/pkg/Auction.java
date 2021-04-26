@@ -157,6 +157,9 @@ public class Auction
 				order = "order by a.AuctionPrice DESC";
 			}
 			// returns auctions not expired in ASCENDING ORDER
+			else if(filter == 5){
+				return query.executeQuery("SELECT * FROM auction a join users u on u.userid = a.userid WHERE a.AuctionCreatedAt BETWEEN SUBDATE(CURDATE(), INTERVAL 1 MONTH) AND NOW() and a.Subcategory = '" + SubCategory + "' order by a.auctionCreatedAt asc");
+			}
 			if(SubCategory.equals("everything")){
 				rs = query.executeQuery("SELECT * FROM auction a join users u on u.UserID = a.UserID WHERE CURRENT_TIMESTAMP < a.AuctionEnd " + order);
 			}
@@ -438,7 +441,7 @@ public class Auction
 			throw ex;
 		}
 	}
-
+	
 
 	public static void checkWinners() throws SQLException, Exception{
 		try{

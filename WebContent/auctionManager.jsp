@@ -17,10 +17,11 @@
 	<%@ include file="./Components/navBar.jsp" %>
 
 	<h1> Auction Manager</h1>
-	<table>
+	<table class="table-sm table-dark">
 	    	<tr>
 			   <th>Auction ID</th>
-			   <th>Seller ID</th>		
+			   <th>Seller ID</th>	
+			   <th>Seller Name</th>	
 			   <th>Item Name</th>
 			   <th>Price</th>
 			   <th>Product Description</th>
@@ -34,6 +35,7 @@
 	<tr>
 		<td><%=rs.getInt("AuctionID")%></td>
 		<td><%=rs.getInt("UserID")%></td>
+		<td><%= Users.getUsername(rs.getInt("UserID"))%></td>
 		<td><%=rs.getString("ItemName")%></td>
 		<td>$<%=rs.getDouble("AuctionPrice")%></td>
 		<td><%=rs.getString("ProductDesc")%></td>

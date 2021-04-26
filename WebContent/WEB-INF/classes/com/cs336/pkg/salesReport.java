@@ -43,7 +43,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT SUM(auctionPrice) EarningsPerItem, Subcategory FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY Subcategory ORDER BY EarningsPerItem DESC";	
+		    String query="SELECT SUM(auctionPrice) EarningsPerItem, Category FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY Category ORDER BY EarningsPerItem DESC";	
 		    
 		    Statement st = con.createStatement();
 
@@ -69,7 +69,7 @@ public class salesReport
 		    ResultSet rs = null;
 	    	java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
 
-		    String query="SELECT SUM(auctionPrice) EarningsPerItemType, Category FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY Category ORDER BY EarningsPerItemType DESC";	
+		    String query="SELECT SUM(auctionPrice) EarningsPerItemType, Subcategory FROM auction WHERE TIMESTAMP(AuctionEnd) < CURRENT_TIMESTAMP AND AuctionPrice >= ReservePrice GROUP BY Subcategory ORDER BY EarningsPerItemType DESC";	
 		    
 		    Statement st = con.createStatement();
 

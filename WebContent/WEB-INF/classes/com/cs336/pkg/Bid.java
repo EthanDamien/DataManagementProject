@@ -163,38 +163,66 @@ public class Bid {
 	  	}
 	}
 
+	public static ResultSet getAllBids() throws Exception
+    {
+    	try 
+	    {
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+		    ResultSet rs = null;
+		    		
+	        String query = "SELECT * from bid b join auction a on b.AuctionID = a.AuctionID WHERE b.BidCreatedAt < a.AuctionEnd Order By a.AuctionID ASC";
+		    Statement st = con.createStatement();
+
+			rs = st.executeQuery(query);
+			return rs;
+
+	    }
+		catch(SQLException se) {
+			System.out.println(se);
+			throw se;
+		} 
+		catch (Exception ex)
+	    {
+			System.out.println(ex);
+			throw ex;
+	  	}
+    }
+	
 	public static void deleteBid(int auctionID, int bidID)throws Exception
 	{
 		try 
 	    {
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
-			
+			Statement st = con.createStatement();
+
 			String query = "Select * FROM bid where BidID = ?";
 	    	PreparedStatement ps = con.prepareStatement(query);
 		    ps.setInt(1, bidID);
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			int bidPrice = rs.getInt("BidAmount");
+			ResultSet rsBid = ps.executeQuery();
+			rsBid.next();
 
-			String queryTemp = "Select * FROM auction where AuctionID = ?";
-	    	PreparedStatement psTemp = con.prepareStatement(queryTemp);
-		    psTemp.setInt(1, auctionID);
-			ResultSet rsTemp = psTemp.executeQuery();
+			String queryAuction = "Select * FROM auction where AuctionID = ?";
+	    	PreparedStatement psAuction = con.prepareStatement(queryAuction);
+	    	psAuction.setInt(1, auctionID);
+			ResultSet rsTemp = psAuction.executeQuery();
 			rsTemp.next();
-			int oldMax = rsTemp.getInt("AuctionPrice");
-			int newPrice = oldMax - bidPrice;
 
-			
-		    PreparedStatement psDelete = con.prepareStatement("DELETE FROM bid where AuctionID = ? and BidID = ?");
+			PreparedStatement psDelete = con.prepareStatement("DELETE FROM bid where AuctionID = ? and BidID = ?");
 		    psDelete.setInt(1, auctionID);
 		    psDelete.setInt(2, bidID);
 		    psDelete.executeUpdate();
+			
+			ResultSet rsMax = st.executeQuery("SELECT Max(BidAmount) AS Max FROM bid WHERE AuctionID = " + auctionID);
+			rsMax.next();
+			int newMax = rsMax.getInt("Max");
+			System.out.println("This is new max " + newMax);
 	
 
 		    String updateQuery = "UPDATE auction set AuctionPrice = ? WHERE AuctionID = ?";
 	    	PreparedStatement psUpdate = con.prepareStatement(updateQuery);
-	    	psUpdate.setDouble(1, newPrice);
+	    	psUpdate.setDouble(1, newMax);
 	    	psUpdate.setInt(2, auctionID);
 	    	psUpdate.executeUpdate();
 

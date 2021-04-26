@@ -25,7 +25,6 @@
             <br>
 			<div class = "container">
         <%String username = (String) session.getAttribute("Username");%>
-				<h1>My Profile (<%=username%>)</h1>
           <%
           int userID = Users.getUserID(username); 
           ResultSet validProducts = Auction.auctionsOwnedBy(userID);
@@ -84,6 +83,7 @@
                           }
                           %>
 					            	</div>
+                        <hr>
                         <h4>My Recent Wins</h4>
                         <div id = "history_scrollable2">
                           <% ResultSet wins = Bid.userWinHistory(userID);
@@ -100,6 +100,61 @@
 
                           if(i == 0){
                             out.println("No bids yet");
+                          }
+                          %>
+					            	</div>
+                        <hr>
+                        <h4>My Interests</h4>
+                        
+                        <form>		
+                          <input class = "textField sweep" type="text" name = "addInterest" style = "height: 30px; width: 250px; margin-bottom: 5px" placeholder="Add Interest" required>
+                          <button type="submit" class = "hvr-bob actionButton anima" style = "width: 250px">Add</button>
+                        </form>
+
+                        <% 	
+                        ResultSet rs = null;
+                        try{
+                            ApplicationDB db = new ApplicationDB();	
+                            Connection con = db.getConnection();
+                            Statement st = con.createStatement();
+                            String interest = request.getParameter("addInterest");
+                            
+                            String query = ("INSERT into interested(userID, interestName, lastChecked) values(?, ?, current_timestamp())");
+                            PreparedStatement ps = con.prepareStatement(query);
+                            ps.setInt(1, userID);
+                            ps.setString(2, interest);
+                            ps.executeUpdate();
+                          
+                        }catch(SQLException se){
+                          System.out.println(se);
+                        }
+                        catch(Exception e){
+                          System.out.println(e);
+              
+                        }
+                       %>
+                        <div id = "history_scrollable2">
+                          
+                          <% 
+                            i = 0;
+                            rs = Users.getInterests(userID);
+                            
+                            while(rs.next()){
+                              i=1;
+                          %>
+                            <div>
+                              <p style = "margin-bottom: 5px;"><%=rs.getString("interestName")%></p>
+                              <form action="interestDeleteHandler.jsp" method = "POST">		
+                                <input name = "interestName" type = "hidden" value="<%=rs.getString("interestName")%>">
+                                <input name = "userID" type = "hidden" value="<%=userID%>">
+
+                                <button type="submit" class = "hvr-bob actionButton anima" style = "width: 100px; font-size: 10px;">Delete</button>
+                              </form>
+                            </div>
+                          <%
+                            }
+                          if(i == 0){
+                            out.println("No Interests Yet");
                           }
                           %>
 					            	</div>

@@ -93,7 +93,7 @@
 							<div class = "bid sweep hvr-bob actionButton anima" onclick = "dropDown()">Open AutoBid</div>
 							<div id = "autobidform" style = "display:none">
 								<p>Auto Bid Increment has to surpass or equal <%=rs.getString("BidIncrement")%> for this Auction.</p>
-								<h6><strong>This amount will possibly be bid if a bid war exists</strong></h6>
+								<h6><strong>AutoBid will possibly bid this amount, be sure you are willing to pay it.</strong></h6>
 								<input class = "textField sweep " type="number" name = "autoBidLimit" placeholder= "Auto Bid Limit">			
 								<br>
 								<input class = "textField sweep" type="number" name = "BidIncrement" placeholder= "Bid Increment (greater than current)">
@@ -134,16 +134,58 @@
 						<%
 							}
 						%>
-						<button id = "desc_bidButton" class = "hvr-bob actionButton">Watch</button>
 					</div>
 					<hr>
-					<h5>Created by <a href = "profile.jsp?userID=<%=rs.getInt("userID") %>"> <%=Users.getUsername(rs.getInt("userID"))%></a></h5>
+					<h4>Created by <a href = "profile.jsp?userID=<%=rs.getInt("userID") %>"> <%=Users.getUsername(rs.getInt("userID"))%></a></h4>
 					<hr>
-					<h5>Description</h5>
+					<h4>Description</h4>
 					<h6><%=rs.getString("ProductDesc") %></h6>
 					<hr>
-					<h6>Category</h5>
+					<h4>Category</h4>
 					<p><%=rs.getString("Category") %> / <%=rs.getString("Subcategory") %></p>
+					<hr>
+					<h4>Similar Items</h4>
+					<% 
+					ResultSet validProducts = Auction.getValidProducts(4, rs.getString("Subcategory"));
+					i = 0;
+					try{
+						%>
+						<div class="row" style = "padding-top: 10px">
+							<!-- card start -->
+								<% while(validProducts.next()){
+									i = 1;
+									int AuctionID = validProducts.getInt("auctionID");
+									
+									int winner = validProducts.getInt("WinnerID");
+									
+								%>
+								<a class="col-4 itemCard anima" style = "padding-top: 10px;" href="product.jsp?auctionID=<%=AuctionID%>">
+									<img src="assets/img/BurberryJacket.jpg"/>
+									<h6 class = "itemName"><%=validProducts.getString("itemname")%></h6>
+									<div>
+									<h6 style="float:left;"><%=validProducts.getDouble("AuctionPrice")%>USD</h6>
+									<h6 style="float:right"><%=Auction.numOfBids(AuctionID)%> Bids</h6>
+									</div>
+									<div style = "background: black; padding-top: 5px;">
+									<h6 style="float:left; color: white; padding-left: 10px">Ends At</h6>
+									<h6 style="float:right; color: white; background: black; padding-left: 10px"><%=validProducts.getString("AuctionEnd")%></h6>
+									</div>
+									<div>
+										<h6 style = "float: right">from <%=validProducts.getString("username")%></h6>
+									</div>
+								</a>
+								<%}%>
+								
+							</div>
+						<%
+					}catch(SQLException se){
+						System.out.println(se);
+					}
+					catch(Exception e){
+						System.out.println(e);
+
+					}
+					%>
 			</div>
 		</div>
 	</div>

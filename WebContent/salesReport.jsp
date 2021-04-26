@@ -48,14 +48,14 @@
 		<table class="table-sm table-dark">
 			<tr>
 			   <th>Earnings Per Item</th>
-			   <th>Item Subcategory</th>
+			   <th>Item Category</th>
 			</tr>
 		<% 
 		
 		while(rs.next()) {%>
 		<tr> 
 			<td><%=rs.getString("EarningsPerItem")%></td>
-			<td><%=rs.getString("subCategory")%></td>
+			<td><%=rs.getString("Category")%></td>
 			
 		</tr>
 		<%} %></table><%
@@ -75,7 +75,7 @@
 			while(rs.next()) {%>
 			<tr> 
 				<td><%=rs.getString("EarningsPerItemType")%></td>
-				<td><%=rs.getString("Category")%></td>
+				<td><%=rs.getString("Subcategory")%></td>
 				
 			</tr>
 			<%} %></table><%
@@ -93,8 +93,9 @@
 			
 			while(rs.next()) {%>
 			<tr> 
-				<td><%= Users.getUsername(Integer.parseInt(rs.getString("UserID")))%></td>
-				<td><%=rs.getString("UserID")%></td>
+			
+				<td> <%= Users.getUsername( Integer.parseInt( rs.getString("UserID"))) %></td>
+				<td><%=rs.getString("UserID") %></td>
 				<td>$<%=rs.getString("EarningPerUser")%></td>
 			</tr>
 			<%} %></table><%
@@ -126,8 +127,9 @@
 				   <th>Bids Won</th>
 				</tr>
 			<% 
+			while(rs.next()) {
+			%>
 			
-			while(rs.next()) {%>
 			<tr> 
 				<td><%= Users.getUsername(Integer.parseInt(rs.getString("WinnerID")))%></td>
 				<td><%=rs.getString("WinnerID")%></td>
