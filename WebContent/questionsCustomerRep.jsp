@@ -24,9 +24,7 @@
     </form>
     
     <br>
-    <div>
-		<a id = "clickQuestion" href = "createQuestion.jsp"> Create a Question</a>
-	 </div>
+
 	 <br>
 	 
 	 <% 	try{
@@ -36,7 +34,7 @@
 	    	ResultSet rs;
 	    	String search = request.getParameter("search");
 	    	
-	    	rs = st.executeQuery("SELECT * FROM questions WHERE Question LIKE '%"+search+"%' ORDER BY QuestionCreatedAt DESC");
+	    	rs = st.executeQuery("SELECT * FROM questions WHERE Question LIKE '%"+search+"%' AND Answered = 0 ORDER BY QuestionCreatedAt DESC");
 	%>
 	    <table  class="table-sm table-dark">
 	    	<tr>
@@ -67,6 +65,14 @@
 			
 			<td><%=rs.getString("Description")%></td>	
 			<td><%=rs.getString("QuestionCreatedAt")%></td>	
+			
+			<td> 
+					<form action="questionRespondHandler.jsp" method = "POST">		
+						<input name = "questionID" type = "hidden" value="<%=rs.getString("QuestionID")%>">
+						<input class = "textField sweep" type="text" name = "answer" placeholder= "Response" required>
+						<input class = "bid sweep" type="submit" value = "Respond to Question">
+					</form>
+				</td>	
 		</tr>
 	
 	<% } %> </table><% 
